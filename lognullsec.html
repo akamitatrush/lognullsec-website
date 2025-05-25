@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LogNullSec™ - Centro hacker corporativo de IA, Blockchain e Cybersecurity" />
+  <title>LogNullSec™ – Hack the Future</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Paleta Preto e Branco com gradientes */
+    :root {
+      --bg-black: #000;
+      --bg-dark: #0a0a0a;
+      --text-white: #fff;
+      --text-gray: #ccc;
+      --text-dark-gray: #888;
+      --border-gray: #333;
+      --accent: #fff;
+      --accent-hover: #f0f0f0;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --glow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    
+    html { scroll-behavior: smooth; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--bg-black) 0%, var(--bg-dark) 100%);
+      color: var(--text-gray);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Loading Animation */
+    .loading-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: var(--bg-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .terminal-loader {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--text-white);
+      font-size: 1.2rem;
+    }
+    
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Header melhorado */
+    header {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-gray);
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      transition: all var(--transition);
+    }
+    
+    header.scrolled {
+      background: rgba(0,0,0,0.98);
+      box-shadow: var(--glow);
+    }
+    
+    .logo {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.8rem; 
+      color: var(--text-white);
+      letter-spacing: 0.1em;
+      text-shadow: var(--glow);
+      font-weight: 700;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    nav a {
+      margin-left: 2rem; 
+      font-weight: 600;
+      text-decoration: none; 
+      color: var(--text-gray);
+      transition: all var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+    
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+    
+    nav a:hover, 
+    nav a.active { 
+      color: var(--accent);
+      text-shadow: var(--glow);
+    }
+
+    /* Menu mobile */
+    .mobile-menu {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--text-white);
+      cursor: pointer;
+    }
+    
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.98);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+    
+    .mobile-nav.active {
+      display: flex;
+    }
+    
+    .mobile-nav a {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: var(--text-gray);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    
+    .mobile-nav a:hover {
+      color: var(--accent);
+      text-shadow: var(--glow);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 2rem; right: 2rem;
+      font-size: 2rem;
+      color: var(--text-white);
+      cursor: pointer;
+    }
+
+    main { padding-top: 6rem; }
+    
+    /* Hero melhorado */
+    #hero {
+      min-height: calc(100vh - 6rem);
+      padding: 4rem 2rem;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      z-index: 1;
+    }
+    
+    section { 
+      padding: 5rem 2rem; 
+      scroll-margin-top: 6rem;
+      position: relative;
+    }
+    
+    h1, h2 {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--text-white); 
+      text-align: center;
+      text-shadow: var(--glow);
+    }
+    
+    h1 { 
+      font-size: 3.5rem; 
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    
+    h2 { 
+      font-size: 2.5rem; 
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+    
+    h3 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.4rem; 
+      color: var(--text-white);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    p, li { 
+      font-size: 1.1rem; 
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      color: var(--text-gray);
+    }
+    
+    .btn {
+      display: inline-block; 
+      padding: 1rem 2rem;
+      border: 2px solid var(--accent); 
+      color: var(--accent);
+      text-decoration: none; 
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0.5rem;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--accent);
+      transition: left var(--transition);
+      z-index: -1;
+    }
+    
+    .btn:hover::before {
+      left: 0;
+    }
+    
+    .btn:hover {
+      color: var(--bg-black);
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem; 
+      max-width: 1400px; 
+      margin: 0 auto;
+    }
+    
+    .card {
+      border: 1px solid var(--border-gray); 
+      padding: 2rem;
+      border-radius: 0.5rem; 
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+    }
+    
+    .card:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+      border-color: var(--accent);
+    }
+    
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-shadow: var(--glow);
+    }
+    
+    .clients { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+    }
+    
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .client-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-gray);
+      transition: all var(--transition);
+    }
+    
+    .client-logo:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.05);
+    }
+    
+    .client-logo img {
+      max-width: 120px;
+      height: auto;
+      filter: grayscale(100%) brightness(1.5);
+      transition: filter var(--transition);
+    }
+    
+    .client-logo:hover img {
+      filter: grayscale(0%) brightness(1);
+    }
+    
+    .testimonial {
+      padding: 2.5rem; 
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 1200px; 
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: -10px; left: 20px;
+      font-size: 4rem;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    
+    .testimonial p { 
+      margin-bottom: 1rem;
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+    
+    .testimonial strong {
+      color: var(--accent);
+    }
+    
+    .newsletter {
+      display: flex; 
+      justify-content: center; 
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .newsletter input {
+      padding: 1rem; 
+      flex: 1;
+      min-width: 300px;
+      border: 2px solid var(--border-gray); 
+      background: rgba(0,0,0,0.8);
+      color: var(--text-white);
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      transition: all var(--transition);
+    }
+    
+    .newsletter input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+    
+    .newsletter button {
+      padding: 1rem 2rem; 
+      border: 2px solid var(--accent);
+      background: var(--accent); 
+      color: var(--bg-black);
+      font-weight: 600;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .newsletter button:hover {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: var(--glow);
+    }
+    
+    .faq-item {
+      max-width: 1200px; 
+      margin: 0 auto 1.5rem auto;
+    }
+    
+    .faq-item details {
+      padding: 0; 
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem; 
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    
+    .faq-item details:hover {
+      border-color: var(--accent);
+    }
+    
+    .faq-item summary { 
+      cursor: pointer; 
+      font-weight: 600; 
+      color: var(--text-white);
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.02);
+      transition: all var(--transition);
+    }
+    
+    .faq-item summary:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .faq-item p { 
+      margin: 0;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+    
+    .contact-form {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .form-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--border-gray);
+      background: rgba(0,0,0,0.8);
+      color: var(--text-white);
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all var(--transition);
+    }
+    
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+    
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .success, .error {
+      text-align: center; 
+      margin-top: 1rem; 
+      font-weight: bold;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+    
+    .success { 
+      color: var(--accent);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--accent);
+    }
+    
+    .error { 
+      color: #ff4444;
+      background: rgba(255,68,68,0.1);
+      border: 1px solid #ff4444;
+    }
+    
+    footer {
+      text-align: center; 
+      padding: 3rem 2rem; 
+      font-size: 1rem;
+      color: var(--text-dark-gray);
+      border-top: 1px solid var(--border-gray);
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 50px; height: 50px;
+      background: var(--accent);
+      color: var(--bg-black);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all var(--transition);
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      background: var(--accent-hover);
+      transform: translateY(-5px);
+      box-shadow: var(--glow);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .mobile-menu { display: block; }
+      
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .newsletter {
+        flex-direction: column;
+      }
+      
+      .newsletter input {
+        min-width: auto;
+      }
+      
+      section {
+        padding: 3rem 1rem;
+      }
+      
+      header {
+        padding: 1rem;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .testimonial {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading">
+    <div class="terminal-loader">
+      <div>Initializing LogNullSec™ systems...</div>
+      <div>Loading quantum encryption protocols...</div>
+      <div>Establishing secure connection<span class="cursor">_</span></div>
+    </div>
+  </div>
+
+  <header id="header">
+    <div class="logo">LogNullSec™</div>
+    <nav id="main-nav">
+      <a href="#hero" class="active">Início</a>
+      <a href="#services">Serviços</a>
+      <a href="#projects">Projetos</a>
+      <a href="#clients">Clientes</a>
+      <a href="#testimonials">Depoimentos</a>
+      <a href="#blog">Blog</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="#faq">FAQ</a>
+      <a href="#careers">Carreiras</a>
+      <a href="#contact">Contato</a>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <i class="fas fa-bars"></i>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <div class="close-menu" id="close-menu">
+      <i class="fas fa-times"></i>
+    </div>
+    <a href="#hero">Início</a>
+    <a href="#services">Serviços</a>
+    <a href="#projects">Projetos</a>
+    <a href="#clients">Clientes</a>
+    <a href="#testimonials">Depoimentos</a>
+    <a href="#blog">Blog</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#faq">FAQ</a>
+    <a href="#careers">Carreiras</a>
+    <a href="#contact">Contato</a>
+  </nav>
+
+  <main>
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content fade-in-up">
+        <h1>Hack the Future</h1>
+        <p class="hero-subtitle">Centro hacker corporativo de IA, Blockchain e Cybersecurity – minimalista e global.</p>
+        <div>
+          <a href="#services" class="btn">Explore Serviços</a>
+          <a href="#contact" class="btn">Fale Conosco</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2>Serviços</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Inteligência Artificial</h3>
+          <p>Automação inteligente, análise preditiva e machine learning aplicado em grandes volumes de dados corporativos.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-link"></i></div>
+          <h3>Blockchain</h3>
+          <p>Redes descentralizadas, contratos inteligentes e DLT com segurança máxima para transações empresariais.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Cybersecurity</h3>
+          <p>Monitoramento 24/7, pentests avançados, resposta a incidentes e hardening de infraestrutura crítica.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Consultoria</h3>
+          <p>Roadmaps tecnológicos, estratégias de inovação e transformação digital para empresas visionárias.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projetos</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-bug"></i></div>
+          <h3>ZeroDay Framework</h3>
+          <p>Simulações de vulnerabilidades em escala industrial para hardening proativo e testes de penetração automatizados.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-ghost"></i></div>
+          <h3>GhostChain</h3>
+          <p>Blockchain stealth modular para transações ultra-privadas com criptografia quântica resistente.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-eye"></i></div>
+          <h3>MatrixAI</h3>
+          <p>Detecção de ameaças em tempo real com aprendizado profundo e análise comportamental avançada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="clients">
+      <h2>Clientes</h2>
+      <div class="clients">
+        <div class="clients-grid">
+          <div class="client-logo">
+            <img src="https://logo.clearbit.com/openai.com" alt="OpenAI">
+          </div>
+          <div class="client-logo">
+            <img src="https://logo.clearbit.com/tesla.com" alt="Tesla">
+          </div>
+          <div class="client-logo">
+            <img src="https://logo.clearbit.com/spacex.com" alt="SpaceX">
+          </div>
+          <div class="client-logo">
+            <img src="https://apis.international/wp-content/uploads/2021/09/logo-apis-white-1.png" alt="APIS">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <h2>Depoimentos</h2>
+      <div class="testimonial">
+        <p>Nível de segurança elevado a patamares impossíveis sem a LogNullSec™. A expertise técnica e a execução impecável superaram todas as expectativas.</p>
+        <p><strong>– CTO, Tesla</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Execução impecável de projetos de IA corporativa. A LogNullSec™ entende as necessidades do futuro e entrega soluções que realmente funcionam.</p>
+        <p><strong>– Eng. Chefe, OpenAI</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A parceria com a LogNullSec elevou nossa capacidade de inovar usando IA a um novo patamar – resultados impressionantes em eficiência e segurança.</p>
+        <p><strong>– Presidente da APIS</strong></p>
+      </div>
+    </section>
+
+    <section id="blog">
+      <h2>Blog</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-robot"></i></div>
+          <h3>IA na Segurança</h3>
+          <p>Uso de Machine Learning para defesa cibernética avançada e detecção de anomalias em tempo real.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-building"></i></div>
+          <h3>Blockchain Empresarial</h3>
+          <p>Implementação de DLT para otimização de processos e criação de ecossistemas digitais seguros.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+          <h3>Cibersegurança 2025</h3>
+          <p>Tendências e melhores práticas para proteger infraestrutura crítica no novo cenário digital.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter">
+      <h2>Newsletter</h2>
+      <p style="text-align: center; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Receba insights exclusivos sobre as últimas tendências em IA, Blockchain e Cybersecurity diretamente na sua caixa de entrada.
+      </p>
+      <form id="newsletter-form" class="contact-form" novalidate>
+        <div class="newsletter">
+          <input type="email" name="EMAIL" placeholder="Seu melhor e-mail" required>
+          <button type="submit">Inscrever-se</button>
+        </div>
+        <div id="newsletter-success" class="success">Obrigado! Inscrição confirmada com sucesso.</div>
+        <div id="newsletter-error" class="error">Erro ao inscrever. Verifique seu e-mail e tente novamente.</div>
+      </form>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <div class="faq-item">
+        <details>
+          <summary>Como iniciar um projeto conosco?</summary>
+          <p>Envie seu briefing detalhado via formulário de contato e agendaremos uma call inicial para discussão técnica e alinhamento de objetivos.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>Vocês atendem globalmente?</summary>
+          <p>Sim, operamos 100% remotamente e atendemos clientes em todos os fusos horários com suporte 24/7 para projetos críticos.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>Qual o tempo médio para entrega de MVP?</summary>
+          <p>Entregamos MVPs funcionais em até 6 semanas, dependendo da complexidade e escopo do projeto. Projetos enterprise podem variar.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>Quais são os níveis de segurança oferecidos?</summary>
+          <p>Trabalhamos com padrões militares de segurança, incluindo criptografia quântica resistente e protocolos zero-trust para máxima proteção.</p>
+        </details>
+      </div>
+      <div class="faq-item">
+        <details>
+          <summary>Oferecem suporte pós-implementação?</summary>
+          <p>Sim, todos os projetos incluem suporte técnico especializado, atualizações de segurança e monitoramento contínuo por 12 meses.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="careers">
+      <h2>Carreiras</h2>
+      <p style="text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+        Junte-se à elite dos hackers éticos e ajude a construir o futuro da segurança digital. Buscamos talentos excepcionais para nossa equipe global.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <h3>Engenheiro de IA</h3>
+          <p>Desenvolva sistemas de inteligência artificial de próxima geração para segurança corporativa.</p>
+          <a class="btn" href="#contact">Candidate-se</a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-server"></i></div>
+          <h3>Especialista DevOps</h3>
+          <p>Gerencie infraestruturas críticas e pipelines de deployment em ambientes high-stakes.</p>
+          <a class="btn" href="#contact">Candidate-se</a>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Programa de Estágio 2025</h3>
+          <p>Oportunidade única para estudantes excepcionais adentrarem o mundo da cybersecurity.</p>
+          <a class="btn" href="#contact">Inscreva-se</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contato</h2>
+      <p style="text-align: center; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Pronto para hackear o futuro? Entre em contato conosco e vamos discutir como podemos elevar sua segurança digital ao próximo nível.
+      </p>
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-grid">
+          <input type="text" name="name" placeholder="Seu nome completo" required>
+          <input type="email" name="email" placeholder="Seu e-mail corporativo" required>
+          <input type="text" name="company" placeholder="Empresa (opcional)">
+          <textarea name="message" rows="6" placeholder="Descreva seu projeto ou necessidade em detalhes..." required></textarea>
+          <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+          <button type="submit" class="btn">Enviar Mensagem</button>
+        </div>
+        <div id="contact-success" class="success">Mensagem enviada com sucesso! Retornaremos em até 24 horas.</div>
+        <div id="contact-error" class="error">Falha ao enviar mensagem. Verifique os dados e tente novamente.</div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scroll-top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <footer>
+    <p>&copy; 2025 LogNullSec™ | Todos os direitos reservados.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+      Hack responsibly. Build securely. Think quantum.
+    </p>
+  </footer>
+
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      const loading = document.getElementById('loading');
+      setTimeout(() => {
+        loading.classList.add('hidden');
+      }, 2000);
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll and active navigation
+    const navLinks = document.querySelectorAll('nav a[href^="#"], .mobile-nav a[href^="#"]');
+    const sections = document.querySelectorAll('section[id]');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+
+        // Close mobile menu if open
+        const mobileNav = document.getElementById('mobile-nav');
+        mobileNav.classList.remove('active');
+      });
+    });
+
+    // Update active navigation on scroll
+    window.addEventListener('scroll', function() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNav = document.getElementById('mobile-nav');
+    const closeMenu = document.getElementById('close-menu');
+
+    mobileMenu.addEventListener('click', function() {
+      mobileNav.classList.add('active');
+    });
+
+    closeMenu.addEventListener('click', function() {
+      mobileNav.classList.remove('active');
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Form handling
+    const contactForm = document.getElementById('contact-form');
+    const newsletterForm = document.getElementById('newsletter-form');
+
+    // Contact form
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const name = formData.get('name');
+      const email = formData.get('email');
+      const message = formData.get('message');
+
+      // Basic validation
+      if (!name || !email || !message) {
+        showMessage('contact-error', 'Por favor, preencha todos os campos obrigatórios.');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        showMessage('contact-error', 'Por favor, insira um e-mail válido.');
+        return;
+      }
+
+      // Simulate form submission
+      this.style.opacity = '0.7';
+      setTimeout(() => {
+        showMessage('contact-success', 'Mensagem enviada com sucesso! Retornaremos em até 24 horas.');
+        this.reset();
+        this.style.opacity = '1';
+      }, 1500);
+    });
+
+    // Newsletter form
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const email = formData.get('EMAIL');
+
+      if (!email || !isValidEmail(email)) {
+        showMessage('newsletter-error', 'Por favor, insira um e-mail válido.');
+        return;
+      }
+
+      // Simulate form submission
+      const button = this.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = 'Inscrevendo...';
+      button.disabled = true;
+
+      setTimeout(() => {
+        showMessage('newsletter-success', 'Obrigado! Inscrição confirmada com sucesso.');
+        this.reset();
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 1500);
+    });
+
+    // Helper functions
+    function showMessage(elementId, message) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.style.display = 'block';
+      
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 5000);
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Animate elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe cards and sections
+    document.querySelectorAll('.card, .testimonial').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Terminal typing effect for loading screen
+    let loadingTexts = [
+      'Initializing LogNullSec™ systems...',
+      'Loading quantum encryption protocols...',
+      'Establishing secure connection...',
+      'Scanning for vulnerabilities...',
+      'Access granted. Welcome to the matrix.'
+    ];
+    
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+    const terminalLoader = document.querySelector('.terminal-loader');
+
+    function typeText() {
+      if (currentTextIndex < loadingTexts.length) {
+        const currentText = loadingTexts[currentTextIndex];
+        
+        if (currentCharIndex < currentText.length) {
+          const displayText = currentText.substring(0, currentCharIndex + 1);
+          terminalLoader.innerHTML = `<div>${displayText}<span class="cursor">_</span></div>`;
+          currentCharIndex++;
+          
+          setTimeout(typeText, 50);
+        } else {
+          currentTextIndex++;
+          currentCharIndex = 0;
+          
+          if (currentTextIndex < loadingTexts.length) {
+            setTimeout(typeText, 500);
+          }
+        }
+      }
+    }
+
+    // Start typing effect
+    setTimeout(typeText, 500);
+
+    // Parallax effect for hero background
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const heroBg = document.querySelector('.hero-bg');
+      if (heroBg) {
+        heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
+    // Add some interactive effects
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
+</body>
+</html>
