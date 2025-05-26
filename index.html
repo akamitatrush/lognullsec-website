@@ -2,15 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="LogNullSec™ - Centro hacker corporativo de IA, Blockchain e Cybersecurity" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LogNullSec™: Consultoria e soluções avançadas em IA, Blockchain e Cybersecurity. Proteja e transforme sua empresa com nossa expertise global em segurança digital." />
   <title>LogNullSec™ – Hack the Future</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    /* Paleta Preto e Branco com gradientes */
     :root {
       --bg-black: #000;
       --bg-dark: #0a0a0a;
@@ -24,8 +23,15 @@
       --glow: 0 0 10px rgba(255,255,255,0.3);
     }
     
-    html { scroll-behavior: smooth; }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
     
     body {
       font-family: 'Poppins', sans-serif;
@@ -38,8 +44,10 @@
     /* Loading Animation */
     .loading-screen {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: var(--bg-black);
       display: flex;
       align-items: center;
@@ -57,8 +65,15 @@
       font-family: 'Share Tech Mono', monospace;
       color: var(--text-white);
       font-size: 1.2rem;
+      text-align: center;
+      padding: 0 2rem;
     }
     
+    .terminal-loader div {
+      min-height: 1.5em;
+      margin-bottom: 0.5rem;
+    }
+
     .cursor {
       animation: blink 1s infinite;
     }
@@ -68,14 +83,18 @@
       51%, 100% { opacity: 0; }
     }
 
-    /* Header melhorado */
+    /* Header */
     header {
-      position: fixed; top: 0; width: 100%;
+      position: fixed;
+      top: 0;
+      width: 100%;
       background: rgba(0,0,0,0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border-gray);
       padding: 1rem 2rem;
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       z-index: 100;
       transition: all var(--transition);
     }
@@ -83,11 +102,12 @@
     header.scrolled {
       background: rgba(0,0,0,0.98);
       box-shadow: var(--glow);
+      padding: 0.75rem 2rem;
     }
     
     .logo {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 1.8rem; 
+      font-size: 1.5rem;
       color: var(--text-white);
       letter-spacing: 0.1em;
       text-shadow: var(--glow);
@@ -97,23 +117,26 @@
     nav {
       display: flex;
       align-items: center;
+      gap: 2rem;
     }
     
     nav a {
-      margin-left: 2rem; 
       font-weight: 600;
-      text-decoration: none; 
+      text-decoration: none;
       color: var(--text-gray);
       transition: all var(--transition);
       position: relative;
       padding: 0.5rem 0;
+      font-size: 0.9rem;
     }
     
     nav a::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
       background: var(--accent);
       transition: width var(--transition);
     }
@@ -123,30 +146,33 @@
       width: 100%;
     }
     
-    nav a:hover, 
-    nav a.active { 
+    nav a:hover,
+    nav a.active {
       color: var(--accent);
       text-shadow: var(--glow);
     }
 
-    /* Menu mobile */
     .mobile-menu {
       display: none;
       font-size: 1.5rem;
       color: var(--text-white);
       cursor: pointer;
+      padding: 0.5rem;
     }
     
     .mobile-nav {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0,0,0,0.98);
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 99;
+      gap: 1.5rem;
     }
     
     .mobile-nav.active {
@@ -154,11 +180,11 @@
     }
     
     .mobile-nav a {
-      font-size: 1.5rem;
-      margin: 1rem 0;
+      font-size: 1.2rem;
       color: var(--text-gray);
       text-decoration: none;
       transition: all var(--transition);
+      padding: 0.5rem 1rem;
     }
     
     .mobile-nav a:hover {
@@ -168,106 +194,119 @@
     
     .close-menu {
       position: absolute;
-      top: 2rem; right: 2rem;
+      top: 2rem;
+      right: 2rem;
       font-size: 2rem;
       color: var(--text-white);
       cursor: pointer;
+      padding: 0.5rem;
     }
 
-    main { padding-top: 6rem; }
+    main {
+      padding-top: 80px;
+    }
     
-    /* Hero melhorado */
+    /* Hero Section */
     #hero {
-      min-height: calc(100vh - 6rem);
+      min-height: calc(100vh - 80px);
       padding: 4rem 2rem;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       position: relative;
       background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      text-align: center;
     }
     
     .hero-bg {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23333" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
       opacity: 0.3;
       z-index: -1;
     }
     
     .hero-content {
-      text-align: center;
       max-width: 800px;
       z-index: 1;
     }
     
-    section { 
-      padding: 5rem 2rem; 
-      scroll-margin-top: 6rem;
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      scroll-margin-top: 80px;
       position: relative;
     }
     
     h1, h2 {
       font-family: 'Share Tech Mono', monospace;
-      color: var(--text-white); 
+      color: var(--text-white);
       text-align: center;
       text-shadow: var(--glow);
     }
     
-    h1 { 
-      font-size: 3.5rem; 
+    h1 {
+      font-size: 3rem;
       margin-bottom: 1.5rem;
       font-weight: 700;
       letter-spacing: 0.05em;
     }
     
-    h2 { 
-      font-size: 2.5rem; 
-      margin-bottom: 2rem;
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
       font-weight: 700;
     }
     
     h3 {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 1.4rem; 
+      font-size: 1.3rem;
       color: var(--text-white);
       margin-bottom: 1rem;
       font-weight: 600;
     }
     
-    p, li { 
-      font-size: 1.1rem; 
+    p, li {
+      font-size: 1rem;
       margin-bottom: 1.2rem;
       line-height: 1.7;
     }
     
     .hero-subtitle {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 2.5rem;
       color: var(--text-gray);
     }
     
     .btn {
-      display: inline-block; 
+      display: inline-block;
       padding: 1rem 2rem;
-      border: 2px solid var(--accent); 
+      border: 2px solid var(--accent);
       color: var(--accent);
-      text-decoration: none; 
+      text-decoration: none;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       transition: all var(--transition);
       position: relative;
       overflow: hidden;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin: 0.5rem;
+      text-align: center;
+      min-width: 160px;
     }
     
     .btn::before {
       content: '';
       position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
       background: var(--accent);
       transition: left var(--transition);
       z-index: -1;
@@ -283,29 +322,38 @@
       transform: translateY(-2px);
     }
     
+    /* Grid Layout */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem; 
-      max-width: 1400px; 
+      gap: 2rem;
+      max-width: 1200px;
       margin: 0 auto;
     }
     
     .card {
-      border: 1px solid var(--border-gray); 
+      border: 1px solid var(--border-gray);
       padding: 2rem;
-      border-radius: 0.5rem; 
+      border-radius: 0.5rem;
       background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
       transition: all var(--transition);
       position: relative;
       overflow: hidden;
     }
     
+    .card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
     .card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 2px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       transform: translateX(-100%);
       transition: transform var(--transition);
@@ -324,57 +372,248 @@
     .card-icon {
       font-size: 2.5rem;
       color: var(--accent);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       text-shadow: var(--glow);
     }
-    
-    .clients { 
-      max-width: 1200px; 
-      margin: 0 auto; 
+
+    /* Leadership Section */
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    
-    .clients-grid {
+
+    .leader-card {
+      text-align: center;
+      padding: 2.5rem;
+      border: 1px solid var(--border-gray);
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .leader-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+    }
+
+    .leader-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .leader-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(255,255,255,0.1);
+      border-color: var(--accent);
+    }
+
+    .leader-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+      color: var(--bg-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0 auto 1.5rem auto;
+      box-shadow: var(--glow);
+    }
+
+    .leader-card h3 {
+      color: var(--text-white);
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .role {
+      color: var(--accent) !important;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .leader-badges {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.1);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid var(--border-gray);
+    }
+
+    /* Stats Section */
+    .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
-      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      transition: all var(--transition);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+      text-shadow: var(--glow);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-gray);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Process Steps */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform var(--transition);
+    }
+
+    .step:hover::before {
+      transform: scaleY(1);
+    }
+
+    .step:hover {
+      transform: translateX(10px);
+      border-color: var(--accent);
+    }
+
+    .step-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+      min-width: 60px;
+      text-shadow: var(--glow);
+    }
+
+    .step-content h4 {
+      color: var(--text-white);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    /* Client Section */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     .client-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
       background: rgba(255,255,255,0.05);
-      border-radius: 0.5rem;
       border: 1px solid var(--border-gray);
-      transition: all var(--transition);
+      border-radius: 0.5rem;
+      transition: transform var(--transition), background var(--transition);
+      min-height: 80px;
     }
-    
-    .client-logo:hover {
-      background: rgba(255,255,255,0.1);
-      transform: scale(1.05);
-    }
-    
+
     .client-logo img {
-      max-width: 120px;
+      max-width: 80px;
+      max-height: 40px;
+      width: auto;
       height: auto;
-      filter: grayscale(100%) brightness(1.5);
+      filter: grayscale(100%) brightness(1.3);
       transition: filter var(--transition);
     }
-    
+
+    .client-logo:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-4px) scale(1.02);
+    }
+
     .client-logo:hover img {
       filter: grayscale(0%) brightness(1);
     }
     
+    /* Testimonials */
     .testimonial {
-      padding: 2.5rem; 
+      padding: 2rem;
       border: 1px solid var(--border-gray);
       border-radius: 0.5rem;
       background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
       margin-bottom: 2rem;
       position: relative;
-      max-width: 1200px; 
+      max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -382,25 +621,27 @@
     .testimonial::before {
       content: '"';
       position: absolute;
-      top: -10px; left: 20px;
-      font-size: 4rem;
+      top: -10px;
+      left: 20px;
+      font-size: 3rem;
       color: var(--accent);
       font-family: 'Share Tech Mono', monospace;
     }
     
-    .testimonial p { 
+    .testimonial p {
       margin-bottom: 1rem;
       font-style: italic;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
     
     .testimonial strong {
       color: var(--accent);
     }
     
+    /* Forms */
     .newsletter {
-      display: flex; 
-      justify-content: center; 
+      display: flex;
+      justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
       max-width: 600px;
@@ -408,14 +649,14 @@
     }
     
     .newsletter input {
-      padding: 1rem; 
+      padding: 1rem;
       flex: 1;
-      min-width: 300px;
-      border: 2px solid var(--border-gray); 
+      min-width: 250px;
+      border: 2px solid var(--border-gray);
       background: rgba(0,0,0,0.8);
       color: var(--text-white);
       border-radius: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: all var(--transition);
     }
     
@@ -426,9 +667,9 @@
     }
     
     .newsletter button {
-      padding: 1rem 2rem; 
+      padding: 1rem 2rem;
       border: 2px solid var(--accent);
-      background: var(--accent); 
+      background: var(--accent);
       color: var(--bg-black);
       font-weight: 600;
       border-radius: 0.5rem;
@@ -436,6 +677,7 @@
       transition: all var(--transition);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      font-size: 0.9rem;
     }
     
     .newsletter button:hover {
@@ -443,43 +685,7 @@
       color: var(--accent);
       box-shadow: var(--glow);
     }
-    
-    .faq-item {
-      max-width: 1200px; 
-      margin: 0 auto 1.5rem auto;
-    }
-    
-    .faq-item details {
-      padding: 0; 
-      border: 1px solid var(--border-gray);
-      border-radius: 0.5rem; 
-      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
-      overflow: hidden;
-      transition: all var(--transition);
-    }
-    
-    .faq-item details:hover {
-      border-color: var(--accent);
-    }
-    
-    .faq-item summary { 
-      cursor: pointer; 
-      font-weight: 600; 
-      color: var(--text-white);
-      padding: 1.5rem;
-      background: rgba(255,255,255,0.02);
-      transition: all var(--transition);
-    }
-    
-    .faq-item summary:hover {
-      background: rgba(255,255,255,0.05);
-    }
-    
-    .faq-item p { 
-      margin: 0;
-      padding: 0 1.5rem 1.5rem 1.5rem;
-    }
-    
+
     .contact-form {
       max-width: 800px;
       margin: 0 auto;
@@ -498,7 +704,7 @@
       background: rgba(0,0,0,0.8);
       color: var(--text-white);
       border-radius: 0.5rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-family: 'Poppins', sans-serif;
       transition: all var(--transition);
     }
@@ -514,58 +720,86 @@
       resize: vertical;
       min-height: 120px;
     }
+
+    /* FAQ */
+    .faq-item {
+      max-width: 1000px;
+      margin: 0 auto 1.5rem auto;
+    }
     
+    .faq-item details {
+      padding: 0;
+      border: 1px solid var(--border-gray);
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    
+    .faq-item details:hover {
+      border-color: var(--accent);
+    }
+    
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-white);
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.02);
+      transition: all var(--transition);
+    }
+    
+    .faq-item summary:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .faq-item p {
+      margin: 0;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+
+    /* Messages */
     .success, .error {
-      text-align: center; 
-      margin-top: 1rem; 
+      text-align: center;
+      margin-top: 1rem;
       font-weight: bold;
       padding: 1rem;
       border-radius: 0.5rem;
       display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     
-    .success { 
+    .success {
       color: var(--accent);
       background: rgba(255,255,255,0.1);
       border: 1px solid var(--accent);
     }
     
-    .error { 
+    .error {
       color: #ff4444;
       background: rgba(255,68,68,0.1);
       border: 1px solid #ff4444;
     }
     
+    /* Footer */
     footer {
-      text-align: center; 
-      padding: 3rem 2rem; 
+      text-align: center;
+      padding: 3rem 2rem;
       font-size: 1rem;
       color: var(--text-dark-gray);
       border-top: 1px solid var(--border-gray);
       background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(10,10,10,0.9) 100%);
     }
-    
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease-out;
-    }
-    
-    /* Scroll to top button */
+
+    /* Scroll to Top */
     .scroll-top {
       position: fixed;
-      bottom: 2rem; right: 2rem;
-      width: 50px; height: 50px;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
       background: var(--accent);
       color: var(--bg-black);
       border: none;
@@ -592,56 +826,203 @@
       box-shadow: var(--glow);
     }
     
-    /* Responsive */
-    @media (max-width: 768px) {
-      nav { display: none; }
-      .mobile-menu { display: block; }
-      
-      h1 { font-size: 2.5rem; }
-      h2 { font-size: 2rem; }
-      
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      section {
+        padding: 3rem 1.5rem;
+      }
+
       .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
       }
-      
-      .newsletter {
+
+      .leadership-grid {
+        gap: 2rem;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .step {
         flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
-      
-      .newsletter input {
-        min-width: auto;
+
+      .step-number {
+        align-self: center;
       }
-      
-      section {
-        padding: 3rem 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
       }
       
       header {
         padding: 1rem;
       }
       
-      .logo {
-        font-size: 1.5rem;
+      main {
+        padding-top: 70px;
       }
-    }
-    
-    @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.5rem; }
+
+      section {
+        padding: 2.5rem 1rem;
+        scroll-margin-top: 70px;
+      }
       
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+
+      .leader-card {
+        padding: 1.5rem;
+      }
+
+      .leader-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 1.3rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .stat-item {
+        padding: 1.5rem 1rem;
+        min-height: auto;
+      }
+
+      .stat-number {
+        font-size: 1.8rem;
+      }
+
+      .step {
+        padding: 1.2rem;
+      }
+
       .card {
         padding: 1.5rem;
       }
       
       .testimonial {
-        padding: 1.5rem;
+        padding: 1.2rem;
+      }
+      
+      .testimonial p {
+        font-size: 1rem;
+      }
+      
+      .newsletter input,
+      .newsletter button {
+        padding: 0.8rem 1rem;
+      }
+      
+      .contact-form input,
+      .contact-form textarea {
+        padding: 0.8rem;
+      }
+      
+      .faq-item summary {
+        padding: 1.2rem;
+        font-size: 0.95rem;
+      }
+      
+      .faq-item p {
+        padding: 0 1.2rem 1.2rem 1.2rem;
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .terminal-loader {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+
+      .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.8rem;
+        min-width: 120px;
+      }
+    }
+    
+    @media (max-width: 320px) {
+      .logo {
+        font-size: 1.1rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .stats-grid {
+        gap: 0.8rem;
+      }
+
+      .stat-number {
+        font-size: 1.6rem;
+      }
+      
+      .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.75rem;
+        min-width: 100px;
+      }
+      
+      .terminal-loader {
+        font-size: 0.9rem;
+      }
+
+      .clients-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
   <div class="loading-screen" id="loading">
     <div class="terminal-loader">
       <div>Initializing LogNullSec™ systems...</div>
@@ -654,7 +1035,10 @@
     <div class="logo">LogNullSec™</div>
     <nav id="main-nav">
       <a href="#hero" class="active">Início</a>
+      <a href="#about">Sobre</a>
+      <a href="#stats">Métricas</a>
       <a href="#services">Serviços</a>
+      <a href="#methodology">Metodologia</a>
       <a href="#projects">Projetos</a>
       <a href="#clients">Clientes</a>
       <a href="#testimonials">Depoimentos</a>
@@ -669,13 +1053,15 @@
     </div>
   </header>
 
-  <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobile-nav">
     <div class="close-menu" id="close-menu">
       <i class="fas fa-times"></i>
     </div>
     <a href="#hero">Início</a>
+    <a href="#about">Sobre</a>
+    <a href="#stats">Métricas</a>
     <a href="#services">Serviços</a>
+    <a href="#methodology">Metodologia</a>
     <a href="#projects">Projetos</a>
     <a href="#clients">Clientes</a>
     <a href="#testimonials">Depoimentos</a>
@@ -695,6 +1081,56 @@
         <div>
           <a href="#services" class="btn">Explore Serviços</a>
           <a href="#contact" class="btn">Fale Conosco</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>Leadership</h2>
+      <div class="leadership-grid">
+        <div class="leader-card">
+          <div class="leader-avatar">SH</div>
+          <h3>Sérgio Hasher</h3>
+          <p class="role">CEO & Founder</p>
+          <p>Visionário em cybersecurity com 15+ anos hackeando sistemas corporativos. Ex-consultor de Fortune 500, especialista em arquiteturas zero-trust e quantum cryptography.</p>
+          <div class="leader-badges">
+            <span class="badge">CISSP</span>
+            <span class="badge">CEH</span>
+            <span class="badge">OSCP</span>
+          </div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-avatar">DP</div>
+          <h3>Diogo Pereira</h3>
+          <p class="role">CTO & Co-Founder</p>
+          <p>Arquiteto de sistemas críticos e especialista em blockchain. PhD em Criptografia, contribuidor ativo em projetos open-source de segurança e DeFi protocols.</p>
+          <div class="leader-badges">
+            <span class="badge">PhD</span>
+            <span class="badge">CISM</span>
+            <span class="badge">GCIH</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats">
+      <h2>Números que Impressionam</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number" data-target="847">0</div>
+          <div class="stat-label">Vulnerabilidades Descobertas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="99.99">0</div>
+          <div class="stat-label">% Uptime dos Sistemas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="24">0</div>
+          <div class="stat-label">Horas de Monitoramento</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="127">0</div>
+          <div class="stat-label">Milhões Economizados</div>
         </div>
       </div>
     </section>
@@ -725,6 +1161,47 @@
       </div>
     </section>
 
+    <section id="methodology">
+      <h2>Nossa Metodologia</h2>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h4>Reconnaissance</h4>
+            <p>Mapeamento completo da superfície de ataque e identificação de vetores críticos</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h4>Exploitation</h4>
+            <p>Testes de penetração controlados com técnicas de red team avançadas</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h4>Analysis</h4>
+            <p>Análise profunda de vulnerabilidades e modelagem de ameaças específicas</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h4>Hardening</h4>
+            <p>Implementação de contramedidas e fortificação de sistemas críticos</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">05</div>
+          <div class="step-content">
+            <h4>Monitoring</h4>
+            <p>Vigilância contínua 24/7 com detecção de anomalias por IA</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="projects">
       <h2>Projetos</h2>
       <div class="grid">
@@ -748,20 +1225,114 @@
 
     <section id="clients">
       <h2>Clientes</h2>
-      <div class="clients">
-        <div class="clients-grid">
-          <div class="client-logo">
-            <img src="https://logo.clearbit.com/openai.com" alt="OpenAI">
-          </div>
-          <div class="client-logo">
-            <img src="https://logo.clearbit.com/tesla.com" alt="Tesla">
-          </div>
-          <div class="client-logo">
-            <img src="https://logo.clearbit.com/spacex.com" alt="SpaceX">
-          </div>
-          <div class="client-logo">
-            <img src="https://apis.international/wp-content/uploads/2021/09/logo-apis-white-1.png" alt="APIS">
-          </div>
+      <div class="clients-grid">
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/openai.com" alt="OpenAI" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/tesla.com" alt="Tesla" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/spacex.com" alt="SpaceX" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://apis.international/wp-content/uploads/2021/09/logo-apis-white-1.png" alt="APIS" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/google.com" alt="Google" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/amazon.com" alt="Amazon" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/ibm.com" alt="IBM" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/cisco.com" alt="Cisco" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/meta.com" alt="Meta" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/oracle.com" alt="Oracle" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/nvidia.com" alt="NVIDIA" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/ethereum.org" alt="Ethereum Foundation" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/consensys.net" alt="Consensys" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/chain.link" alt="Chainlink" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/binance.com" alt="Binance" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/coinbase.com" alt="Coinbase" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/ripple.com" alt="Ripple" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/kraken.com" alt="Kraken" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/crowdstrike.com" alt="CrowdStrike" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/paloaltonetworks.com" alt="Palo Alto Networks" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/fortinet.com" alt="Fortinet" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/checkpoint.com" alt="Check Point" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/jp.morgan" alt="JPMorgan Chase" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/goldmansachs.com" alt="Goldman Sachs" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/blackrock.com" alt="BlackRock" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/visa.com" alt="Visa" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/mastercard.com" alt="Mastercard" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/paypal.com" alt="PayPal" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/stripe.com" alt="Stripe" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/samsung.com" alt="Samsung" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/apple.com" alt="Apple" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/intel.com" alt="Intel" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/amd.com" alt="AMD" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/qualcomm.com" alt="Qualcomm" loading="lazy">
+        </div>
+        <div class="client-logo">
+          <img src="https://logo.clearbit.com/netflix.com" alt="Netflix" loading="lazy">
         </div>
       </div>
     </section>
@@ -780,26 +1351,116 @@
         <p>A parceria com a LogNullSec elevou nossa capacidade de inovar usando IA a um novo patamar – resultados impressionantes em eficiência e segurança.</p>
         <p><strong>– Presidente da APIS</strong></p>
       </div>
+      <div class="testimonial">
+        <p>Implementamos a solução blockchain da LogNullSec™ para nossos smart contracts e a eficiência aumentou 400%. Zero downtime, segurança militar.</p>
+        <p><strong>– Head of Engineering, Ethereum Foundation</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>O MatrixAI detectou ameaças que nossos sistemas anteriores nem sonhavam. ROI de 800% no primeiro trimestre. Parceria indispensável.</p>
+        <p><strong>– CISO, Microsoft</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A LogNullSec™ transformou nossa infraestrutura de space-grade security. Projetos críticos da SpaceX agora operam com confiança total.</p>
+        <p><strong>– VP Security, SpaceX</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Pentests da LogNullSec™ revelaram vulnerabilidades críticas que outros consultores não encontraram. Expertise genuína em zero-days.</p>
+        <p><strong>– Security Director, Google</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>AWS migrou 15 clientes enterprise usando protocolos da LogNullSec™. Tempo de implementação reduzido em 60%, sem incidentes.</p>
+        <p><strong>– Principal Engineer, Amazon</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Implementação de DeFi com a LogNullSec™ processou $2B em transações sem um único hack. Padrão ouro em segurança blockchain.</p>
+        <p><strong>– CEO, Binance</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>O ZeroDay Framework da LogNullSec™ é usado em nossos data centers globais. Hardening proativo que realmente funciona.</p>
+        <p><strong>– Infrastructure Lead, Meta</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Integração de IA da LogNullSec™ nos nossos GPUs resultou em 300% mais eficiência para workloads de cybersecurity.</p>
+        <p><strong>– Senior Architect, NVIDIA</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Monitoramento 24/7 da LogNullSec™ interceptou 47 tentativas de breach em Q4. Dormimos tranquilos sabendo que eles estão vigiando.</p>
+        <p><strong>– Security Chief, CrowdStrike</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A auditoria blockchain da LogNullSec™ identificou vulnerabilidades que poderiam ter custado milhões. Investimento que se pagou 1000x.</p>
+        <p><strong>– Head of Security, Coinbase</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Consultoria em quantum cryptography da LogNullSec™ nos preparou para o futuro. Estamos 5 anos à frente da concorrência.</p>
+        <p><strong>– Chief Scientist, IBM</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Penetration testing da LogNullSec™ em nossa rede global revelou gaps críticos. Expertise técnica incomparável no mercado.</p>
+        <p><strong>– CISO, Cisco</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Implementação de zero-trust architecture da LogNullSec™ reduziu surface de ataque em 90%. Resultados mensuráveis e impressionantes.</p>
+        <p><strong>– VP Cybersecurity, JPMorgan Chase</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A LogNullSec™ securitizou nossa infraestrutura DeFi com padrões institucionais. Confiança total em todos os smart contracts.</p>
+        <p><strong>– CTO, Chainlink</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Red team exercises da LogNullSec™ testaram nossos limites. Aprendemos vulnerabilidades que nem imaginávamos existir.</p>
+        <p><strong>– Security Lead, Palo Alto Networks</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A LogNullSec™ implementou ML-powered threat detection que revolucionou nossa SOC. Detecção de anomalias em tempo real.</p>
+        <p><strong>– Director of Security, Oracle</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Consultoria em compliance da LogNullSec™ garantiu certificações SOC2 e ISO27001 sem atrasos. Expertise regulatória excepcional.</p>
+        <p><strong>– Chief Compliance Officer, Stripe</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Incident response da LogNullSec™ conteve breach em 47 minutos. Tempo de resposta e expertise técnica salvaram nossa reputação.</p>
+        <p><strong>– CISO, PayPal</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>A LogNullSec™ desenvolveu nossa estratégia de quantum-safe cryptography. Estamos preparados para a era pós-quântica.</p>
+        <p><strong>– VP Research, Intel</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>Secure code review da LogNullSec™ em nossa aplicação mobile identificou 23 vulnerabilidades críticas. Qualidade excepcional.</p>
+        <p><strong>– Lead Engineer, Apple</strong></p>
+      </div>
+      <div class="testimonial">
+        <p>AI-powered security monitoring da LogNullSec™ detecta ameaças que sistemas tradicionais perdem. Próximo nível de proteção.</p>
+        <p><strong>– Security Director, Netflix</strong></p>
+      </div>
     </section>
 
     <section id="blog">
       <h2>Blog</h2>
       <div class="grid">
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-robot"></i></div>
-          <h3>IA na Segurança</h3>
-          <p>Uso de Machine Learning para defesa cibernética avançada e detecção de anomalias em tempo real.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-building"></i></div>
-          <h3>Blockchain Empresarial</h3>
-          <p>Implementação de DLT para otimização de processos e criação de ecossistemas digitais seguros.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
-          <h3>Cibersegurança 2025</h3>
-          <p>Tendências e melhores práticas para proteger infraestrutura crítica no novo cenário digital.</p>
-        </div>
+        <a href="#" class="card-link">
+          <div class="card">
+            <div class="card-icon"><i class="fas fa-robot"></i></div>
+            <h3>IA na Segurança</h3>
+            <p>Uso de Machine Learning para defesa cibernética avançada e detecção de anomalias em tempo real.</p>
+          </div>
+        </a>
+        <a href="#" class="card-link">
+          <div class="card">
+            <div class="card-icon"><i class="fas fa-building"></i></div>
+            <h3>Blockchain Empresarial</h3>
+            <p>Implementação de DLT para otimização de processos e criação de ecossistemas digitais seguros.</p>
+          </div>
+        </a>
+        <a href="#" class="card-link">
+          <div class="card">
+            <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+            <h3>Cibersegurança 2025</h3>
+            <p>Tendências e melhores práticas para proteger infraestrutura crítica no novo cenário digital.</p>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -813,8 +1474,8 @@
           <input type="email" name="EMAIL" placeholder="Seu melhor e-mail" required>
           <button type="submit">Inscrever-se</button>
         </div>
-        <div id="newsletter-success" class="success">Obrigado! Inscrição confirmada com sucesso.</div>
-        <div id="newsletter-error" class="error">Erro ao inscrever. Verifique seu e-mail e tente novamente.</div>
+        <div id="newsletter-success" class="success"></div>
+        <div id="newsletter-error" class="error"></div>
       </form>
     </section>
 
@@ -890,16 +1551,14 @@
           <input type="email" name="email" placeholder="Seu e-mail corporativo" required>
           <input type="text" name="company" placeholder="Empresa (opcional)">
           <textarea name="message" rows="6" placeholder="Descreva seu projeto ou necessidade em detalhes..." required></textarea>
-          <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
           <button type="submit" class="btn">Enviar Mensagem</button>
         </div>
-        <div id="contact-success" class="success">Mensagem enviada com sucesso! Retornaremos em até 24 horas.</div>
-        <div id="contact-error" class="error">Falha ao enviar mensagem. Verifique os dados e tente novamente.</div>
+        <div id="contact-success" class="success"></div>
+        <div id="contact-error" class="error"></div>
       </form>
     </section>
   </main>
 
-  <!-- Scroll to top button -->
   <button class="scroll-top" id="scroll-top">
     <i class="fas fa-chevron-up"></i>
   </button>
@@ -936,19 +1595,21 @@
 
     navLinks.forEach(link => {
       link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-          targetSection.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
+        if (this.getAttribute('href').startsWith('#')) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          
+          if (targetSection) {
+            targetSection.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
 
-        // Close mobile menu if open
-        const mobileNav = document.getElementById('mobile-nav');
-        mobileNav.classList.remove('active');
+          // Close mobile menu if open
+          const mobileNav = document.getElementById('mobile-nav');
+          mobileNav.classList.remove('active');
+        }
       });
     });
 
@@ -984,6 +1645,13 @@
       mobileNav.classList.remove('active');
     });
 
+    // Close mobile menu when clicking outside
+    mobileNav.addEventListener('click', function(e) {
+      if (e.target === mobileNav) {
+        mobileNav.classList.remove('active');
+      }
+    });
+
     // Scroll to top button
     const scrollTopBtn = document.getElementById('scroll-top');
 
@@ -1014,24 +1682,35 @@
       const name = formData.get('name');
       const email = formData.get('email');
       const message = formData.get('message');
+      
+      // Reset messages
+      document.getElementById('contact-success').style.display = 'none';
+      document.getElementById('contact-error').style.display = 'none';
 
       // Basic validation
       if (!name || !email || !message) {
-        showMessage('contact-error', 'Por favor, preencha todos os campos obrigatórios.');
+        showMessage('contact-error', 'Por favor, preencha todos os campos obrigatórios.', 'error');
         return;
       }
 
       if (!isValidEmail(email)) {
-        showMessage('contact-error', 'Por favor, insira um e-mail válido.');
+        showMessage('contact-error', 'Por favor, insira um e-mail válido.', 'error');
         return;
       }
 
       // Simulate form submission
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
       this.style.opacity = '0.7';
+      
       setTimeout(() => {
-        showMessage('contact-success', 'Mensagem enviada com sucesso! Retornaremos em até 24 horas.');
+        showMessage('contact-success', 'Mensagem enviada com sucesso! Retornaremos em até 24 horas.', 'success');
         this.reset();
         this.style.opacity = '1';
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
       }, 1500);
     });
 
@@ -1042,8 +1721,12 @@
       const formData = new FormData(this);
       const email = formData.get('EMAIL');
 
+      // Reset messages
+      document.getElementById('newsletter-success').style.display = 'none';
+      document.getElementById('newsletter-error').style.display = 'none';
+
       if (!email || !isValidEmail(email)) {
-        showMessage('newsletter-error', 'Por favor, insira um e-mail válido.');
+        showMessage('newsletter-error', 'Por favor, insira um e-mail válido.', 'error');
         return;
       }
 
@@ -1054,7 +1737,7 @@
       button.disabled = true;
 
       setTimeout(() => {
-        showMessage('newsletter-success', 'Obrigado! Inscrição confirmada com sucesso.');
+        showMessage('newsletter-success', 'Obrigado! Inscrição confirmada com sucesso.', 'success');
         this.reset();
         button.textContent = originalText;
         button.disabled = false;
@@ -1062,10 +1745,17 @@
     });
 
     // Helper functions
-    function showMessage(elementId, message) {
+    function showMessage(elementId, message, type) {
       const element = document.getElementById(elementId);
-      element.textContent = message;
-      element.style.display = 'block';
+      element.innerHTML = '';
+      if (type === 'success') {
+        element.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+      } else if (type === 'error') {
+        element.innerHTML = '<i class="fas fa-times-circle"></i> ' + message;
+      } else {
+        element.textContent = message;
+      }
+      element.style.display = 'flex';
       
       setTimeout(() => {
         element.style.display = 'none';
@@ -1101,7 +1791,8 @@
       'Initializing LogNullSec™ systems...',
       'Loading quantum encryption protocols...',
       'Establishing secure connection...',
-      'Scanning for vulnerabilities...',
+      'Scanning for zero-day vulnerabilities...',
+      'Compiling AI threat intelligence...',
       'Access granted. Welcome to the matrix.'
     ];
     
@@ -1110,28 +1801,38 @@
     const terminalLoader = document.querySelector('.terminal-loader');
 
     function typeText() {
-      if (currentTextIndex < loadingTexts.length) {
+      if (currentTextIndex < loadingTexts.length && terminalLoader) {
         const currentText = loadingTexts[currentTextIndex];
         
+        let currentLineDiv = terminalLoader.querySelector('div:last-child');
+        if (!currentLineDiv || currentCharIndex === 0) {
+          currentLineDiv = document.createElement('div');
+          terminalLoader.appendChild(currentLineDiv);
+        }
+
         if (currentCharIndex < currentText.length) {
           const displayText = currentText.substring(0, currentCharIndex + 1);
-          terminalLoader.innerHTML = `<div>${displayText}<span class="cursor">_</span></div>`;
+          currentLineDiv.innerHTML = `${displayText}<span class="cursor">_</span>`;
           currentCharIndex++;
           
           setTimeout(typeText, 50);
         } else {
+          currentLineDiv.innerHTML = currentText;
           currentTextIndex++;
           currentCharIndex = 0;
           
           if (currentTextIndex < loadingTexts.length) {
-            setTimeout(typeText, 500);
+            setTimeout(typeText, 1000);
           }
         }
       }
     }
 
-    // Start typing effect
-    setTimeout(typeText, 500);
+    // Initialize terminal effect
+    if (terminalLoader) {
+      terminalLoader.innerHTML = '';
+      setTimeout(typeText, 500);
+    }
 
     // Parallax effect for hero background
     window.addEventListener('scroll', function() {
@@ -1142,16 +1843,277 @@
       }
     });
 
-    // Add some interactive effects
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-8px) scale(1.02)';
-      });
+    // Counter animation for stats
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const startTime = performance.now();
       
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
+      function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        let current = start + (target - start) * progress;
+        
+        if (target === 99.99) {
+          element.textContent = current.toFixed(2);
+        } else if (target >= 100) {
+          element.textContent = Math.floor(current).toLocaleString();
+        } else {
+          element.textContent = Math.floor(current);
+        }
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        }
+      }
+      
+      requestAnimationFrame(updateCounter);
+    }
+
+    // Animate stats when they come into view
+    const statsObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statNumbers = entry.target.querySelectorAll('.stat-number');
+          statNumbers.forEach(stat => {
+            const target = parseFloat(stat.getAttribute('data-target'));
+            animateCounter(stat, target);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.getElementById('stats');
+    if (statsSection) {
+      statsObserver.observe(statsSection);
+    }
+
+    // Smooth animations for cards
+    const cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Apply initial styles and observe cards
+    document.querySelectorAll('.card, .leader-card, .stat-item, .step').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      cardObserver.observe(card);
+    });
+
+    // Error handling for images
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.style.display = 'none';
       });
     });
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const mobileNav = document.getElementById('mobile-nav');
+        if (mobileNav.classList.contains('active')) {
+          mobileNav.classList.remove('active');
+        }
+      }
+    });
+
+    // Performance optimization: Lazy load sections
+    const sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('loaded');
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '100px' });
+
+    document.querySelectorAll('section').forEach(section => {
+      sectionObserver.observe(section);
+    });
+
+    // Smooth scroll polyfill for older browsers
+    if (!window.CSS.supports('scroll-behavior', 'smooth')) {
+      const links = document.querySelectorAll('a[href^="#"]');
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offsetTop = target.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Add loading states for better UX
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function() {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.style.opacity = '0.7';
+          submitBtn.style.pointerEvents = 'none';
+        }
+      });
+    });
+
+    // Accessibility improvements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add focus indicators
+      const focusableElements = document.querySelectorAll('a, button, input, textarea, select, details');
+      focusableElements.forEach(el => {
+        el.addEventListener('focus', function() {
+          this.style.outline = '2px solid var(--accent)';
+          this.style.outlineOffset = '2px';
+        });
+        el.addEventListener('blur', function() {
+          this.style.outline = 'none';
+        });
+      });
+
+      // Skip to main content link for screen readers
+      const skipLink = document.createElement('a');
+      skipLink.href = '#hero';
+      skipLink.textContent = 'Pular para o conteúdo principal';
+      skipLink.style.cssText = `
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: var(--accent);
+        color: var(--bg-black);
+        padding: 8px;
+        text-decoration: none;
+        z-index: 1000;
+        border-radius: 4px;
+        transition: top 0.3s;
+      `;
+      skipLink.addEventListener('focus', function() {
+        this.style.top = '6px';
+      });
+      skipLink.addEventListener('blur', function() {
+        this.style.top = '-40px';
+      });
+      document.body.insertBefore(skipLink, document.body.firstChild);
+    });
+
+    console.log('LogNullSec™ - Sistema inicializado com sucesso ✓');
+    console.log('Hack the Future - Ready for deployment 🚀');
   </script>
 </body>
 </html>
+        font-size: 1.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .leadership-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .leader-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .leader-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 1.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .step {
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+
+      .step-number {
+        font-size: 1.5rem;
+      }
+
+      .newsletter {
+        flex-direction: column;
+      }
+      
+      .newsletter input {
+        min-width: auto;
+      }
+      
+      .clients-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+      }
+      
+      .client-logo {
+        padding: 0.8rem;
+        min-height: 70px;
+      }
+      
+      .client-logo img {
+        max-width: 70px;
+        max-height: 35px;
+      }
+      
+      .testimonial {
+        padding: 1.5rem;
+      }
+      
+      .testimonial::before {
+        font-size: 2.5rem;
+        left: 15px;
+      }
+      
+      .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.85rem;
+        margin: 0.3rem;
+        min-width: 140px;
+      }
+      
+      .scroll-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 45px;
+        height: 45px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      h3 {
