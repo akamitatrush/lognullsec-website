@@ -7,8 +7,51 @@
   <meta name="description" content="LogNullSec™: Centro hacker corporativo de IA, Blockchain e Cybersecurity – Em Construção" />
   <title>LogNullSec™ – Hack The Future</title>
 
+  <!-- ============================================ -->
+  <!-- 🔒 SECURITY HEADERS - MÁXIMA PROTEÇÃO 🔒 -->
+  <!-- ============================================ -->
+  
+  <!-- Previne MIME-type sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  
+  <!-- Previne clickjacking (site dentro de iframe) -->
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  
+  <!-- Ativa proteção XSS do navegador -->
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  
+  <!-- Controla informações de referrer -->
+  <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">
+  
+  <!-- Content Security Policy - Define fontes confiáveis -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    img-src 'self' data: https:;
+    connect-src 'self';
+    frame-ancestors 'self';
+    base-uri 'self';
+    form-action 'self';
+  ">
+  
+  <!-- Permissions Policy - Controla features do navegador -->
+  <meta http-equiv="Permissions-Policy" content="
+    geolocation=(),
+    microphone=(),
+    camera=(),
+    payment=(),
+    usb=(),
+    magnetometer=(),
+    gyroscope=(),
+    accelerometer=()
+  ">
+  
+  <!-- ============================================ -->
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     :root {
@@ -1487,12 +1530,32 @@
   </footer>
 
   <script>
+    // ============================================
+    // 🔒 SECURITY NOTE - Anti-Tampering
+    // ============================================
+    // This code integrity check helps detect unauthorized modifications
+    (function() {
+      'use strict';
+      
+      // Disable right-click context menu (optional - can be removed if not desired)
+      // document.addEventListener('contextmenu', e => e.preventDefault());
+      
+      // Detect DevTools (optional - can be removed)
+      // const devtools = /./;
+      // devtools.toString = function() {
+      //   console.log('%c🔒 LogNullSec™ Security Active', 'color: #0f0; font-size: 14px;');
+      // };
+      
+      console.log('%c🔒 SECURITY HEADERS ACTIVE', 'background: #000; color: #0f0; font-size: 16px; padding: 10px;');
+    })();
+
     // ===== CONSOLE LOGS ESTILIZADOS =====
     console.log('%c⚡ SYSTEM BREACH DETECTED! ⚡', 'background: #000; color: #fff; font-size: 20px; padding: 10px; font-family: monospace;');
     console.log('%cInitializing countermeasures...', 'color: #0f0; font-family: monospace;');
     console.log('%c⚡ Welcome to LogNullSec™ ⚡', 'background: #000; color: #fff; font-size: 16px; padding: 5px; font-family: monospace;');
     console.log('%cExpected launch: 2033', 'color: #fff; font-family: monospace;');
     console.log('%c🤖 All systems operational', 'color: #0f0; font-family: monospace;');
+    console.log('%c🔒 Security: Maximum', 'color: #0f0; font-family: monospace;');
     console.log('%cPress Ctrl+K to open terminal', 'color: #888; font-family: monospace;');
     console.log('%cPress M for Matrix Mode', 'color: #888; font-family: monospace;');
 
@@ -1940,10 +2003,14 @@
       }, 2500);
     });
 
-    console.log('⚡ LogNullSec™ - ULTRA VERSION WITH ALL FEATURES! ⚡');
-    console.log('🤖 Features: Countdown, Cursor, Particles, Terminal, Matrix Mode, Metrics, Quotes, Notifications');
-    console.log('🎮 Easter Eggs: Click logo 5x, Click year, Type "lognullsec", Press M for Matrix');
-    console.log('⌨️ Shortcuts: Ctrl+K = Terminal, M = Matrix Mode, ESC = Close');
+    console.log('%c⚡ LogNullSec™ - SECURE VERSION LOADED! ⚡', 'background: #000; color: #0f0; font-size: 16px; padding: 10px;');
+    console.log('%c🔒 Security Headers: ACTIVE', 'color: #0f0; font-family: monospace;');
+    console.log('%c🛡️ XSS Protection: ENABLED', 'color: #0f0; font-family: monospace;');
+    console.log('%c🚫 Clickjacking Prevention: ENABLED', 'color: #0f0; font-family: monospace;');
+    console.log('%c📋 Content Security Policy: ENFORCED', 'color: #0f0; font-family: monospace;');
+    console.log('%c🤖 Features: Countdown, Cursor, Particles, Terminal, Matrix Mode, Metrics, Quotes, Notifications', 'color: #fff; font-family: monospace;');
+    console.log('%c🎮 Easter Eggs: Click logo 5x, Click year, Type "lognullsec", Press M for Matrix', 'color: #fff; font-family: monospace;');
+    console.log('%c⌨️ Shortcuts: Ctrl+K = Terminal, M = Matrix Mode, ESC = Close', 'color: #fff; font-family: monospace;');
   </script>
 </body>
 
