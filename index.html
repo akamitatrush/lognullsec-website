@@ -7,48 +7,11 @@
   <meta name="description" content="LogNullSec™: Centro hacker corporativo de IA, Blockchain e Cybersecurity – Em Construção" />
   <title>LogNullSec™ – Hack The Future</title>
 
-  <!-- ============================================ -->
-  <!-- 🔒 SECURITY HEADERS - MÁXIMA PROTEÇÃO 🔒 -->
-  <!-- ============================================ -->
-  
-  <!-- Previne MIME-type sniffing -->
+  <!-- 🔒 SECURITY HEADERS -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  
-  <!-- Previne clickjacking (site dentro de iframe) -->
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-  
-  <!-- Ativa proteção XSS do navegador -->
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-  
-  <!-- Controla informações de referrer -->
   <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">
-  
-  <!-- Content Security Policy - Define fontes confiáveis -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
-    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-    img-src 'self' data: https:;
-    connect-src 'self';
-    frame-ancestors 'self';
-    base-uri 'self';
-    form-action 'self';
-  ">
-  
-  <!-- Permissions Policy - Controla features do navegador -->
-  <meta http-equiv="Permissions-Policy" content="
-    geolocation=(),
-    microphone=(),
-    camera=(),
-    payment=(),
-    usb=(),
-    magnetometer=(),
-    gyroscope=(),
-    accelerometer=()
-  ">
-  
-  <!-- ============================================ -->
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Share+Tech+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -56,12 +19,11 @@
   <style>
     :root {
       --bg-black: #000000;
-      --bg-dark: #050505;
       --text-white: #ffffff;
       --text-gray: #cccccc;
-      --text-dark-gray: #666666;
-      --border-gray: #333333;
       --neon-white: #ffffff;
+      --neon-cyan: #00ffff;
+      --neon-green: #00ff00;
       --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --glow: 0 0 30px rgba(255, 255, 255, 0.8);
       --glow-intense: 0 0 50px rgba(255, 255, 255, 1);
@@ -90,7 +52,6 @@
       cursor: none;
     }
 
-    /* Matrix Mode */
     body.matrix-mode {
       --text-white: #00ff00;
       --text-gray: #00cc00;
@@ -104,7 +65,586 @@
       border-color: #00ff00 !important;
     }
 
-    /* Custom Cursor */
+    /* ============================================ */
+    /* 🎬 BOOT SEQUENCE SCREEN */
+    /* ============================================ */
+    .boot-sequence {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Share Tech Mono', monospace;
+      color: #fff;
+      transition: opacity 1s;
+    }
+
+    .boot-sequence.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .boot-text {
+      font-size: 0.9rem;
+      margin: 0.3rem 0;
+      opacity: 0;
+      animation: bootFadeIn 0.5s forwards;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes bootFadeIn {
+      to { opacity: 1; }
+    }
+
+    .boot-progress {
+      width: 400px;
+      height: 20px;
+      border: 2px solid #fff;
+      margin-top: 2rem;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .boot-progress-bar {
+      height: 100%;
+      background: #fff;
+      width: 0%;
+      transition: width 0.3s;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+
+    /* ============================================ */
+    /* 📺 CRT/VHS SCREEN EFFECTS */
+    /* ============================================ */
+    .crt-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.15;
+    }
+
+    .crt-overlay::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      animation: scanlines 8s linear infinite;
+    }
+
+    @keyframes scanlines {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(10px); }
+    }
+
+    .crt-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    }
+
+    /* Chromatic Aberration */
+    .chromatic {
+      position: relative;
+    }
+
+    .chromatic::before,
+    .chromatic::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: screen;
+    }
+
+    .chromatic::before {
+      color: #f00;
+      transform: translateX(-2px);
+      opacity: 0.8;
+    }
+
+    .chromatic::after {
+      color: #0ff;
+      transform: translateX(2px);
+      opacity: 0.8;
+    }
+
+    .screen-curve {
+      border-radius: 2% / 2%;
+    }
+
+    /* ============================================ */
+    /* 🎯 HOLOGRAPHIC TEXT EFFECT */
+    /* ============================================ */
+    .holographic {
+      position: relative;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      animation: holographicGlitch 8s infinite;
+    }
+
+    @keyframes holographicGlitch {
+      0%, 98%, 100% {
+        text-shadow: 
+          0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(255, 255, 255, 0.6),
+          2px 0 0 rgba(255, 0, 0, 0.5),
+          -2px 0 0 rgba(0, 255, 255, 0.5);
+      }
+      99% {
+        text-shadow: 
+          0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(255, 255, 255, 0.6),
+          5px 0 0 rgba(255, 0, 0, 0.8),
+          -5px 0 0 rgba(0, 255, 255, 0.8);
+        transform: translateX(-2px);
+      }
+    }
+
+    /* ============================================ */
+    /* 🔐 BIOMETRIC SCANNER - BLACK & WHITE */
+    /* ============================================ */
+    .biometric-scanner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .biometric-scanner.active {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .scanner-container {
+      text-align: center;
+    }
+
+    .fingerprint {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+      border: 3px solid var(--text-white);
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.6);
+      animation: fingerprintPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fingerprintPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 255, 255, 0.6); }
+      50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(255, 255, 255, 1); }
+    }
+
+    .fingerprint::before {
+      content: '👆';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      opacity: 0.6;
+    }
+
+    .scan-line {
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      background: var(--text-white);
+      box-shadow: 0 0 20px var(--text-white);
+      animation: scanMove 2s linear infinite;
+    }
+
+    @keyframes scanMove {
+      0% { top: 0%; }
+      100% { top: 100%; }
+    }
+
+    .scanner-status {
+      font-size: 1.2rem;
+      color: var(--text-white);
+      text-shadow: 0 0 20px var(--text-white);
+      margin-bottom: 1rem;
+      letter-spacing: 0.2em;
+    }
+
+    .scanner-progress {
+      font-size: 2rem;
+      color: var(--text-white);
+      text-shadow: 0 0 30px var(--text-white);
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    /* ============================================ */
+    /* 📡 RADAR SWEEP - BLACK & WHITE */
+    /* ============================================ */
+    .radar-container {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 180px;
+      height: 180px;
+      border: 2px solid var(--text-white);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      z-index: 99;
+      overflow: hidden;
+    }
+
+    .radar-sweep {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 90px 180px 90px;
+      border-color: transparent transparent rgba(255, 255, 255, 0.3) transparent;
+      transform-origin: 50% 0;
+      animation: radarSweep 4s linear infinite;
+    }
+
+    @keyframes radarSweep {
+      0% { transform: translate(-50%, 0) rotate(0deg); }
+      100% { transform: translate(-50%, 0) rotate(360deg); }
+    }
+
+    .radar-grid {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+    }
+
+    .radar-grid::before,
+    .radar-grid::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    .radar-grid::before {
+      width: 60%;
+      height: 60%;
+    }
+
+    .radar-grid::after {
+      width: 30%;
+      height: 30%;
+    }
+
+    .radar-blip {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--text-white);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--text-white);
+      animation: blipPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes blipPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.5); }
+    }
+
+    .radar-label {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-white);
+      text-shadow: 0 0 10px var(--text-white);
+      white-space: nowrap;
+    }
+
+    /* ============================================ */
+    /* 🧠 NEURAL NETWORK VISUALIZATION */
+    /* ============================================ */
+    .neural-network {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 400px;
+      z-index: 1;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .neural-node {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--text-white);
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--text-white);
+      animation: nodePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes nodePulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .neural-connection {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, var(--text-white), transparent);
+      box-shadow: 0 0 10px var(--text-white);
+      transform-origin: 0 0;
+      opacity: 0.4;
+      animation: connectionPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes connectionPulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.6; }
+    }
+
+    /* ============================================ */
+    /* 📊 THREAT INDICATOR - BLACK & WHITE */
+    /* ============================================ */
+    .threat-indicator {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid var(--text-white);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+      z-index: 99;
+      font-family: 'Share Tech Mono', monospace;
+      min-width: 220px;
+    }
+
+    .threat-level {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .threat-status {
+      font-size: 1.5rem;
+      color: var(--text-white);
+      text-shadow: 0 0 20px var(--text-white);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .threat-status.warning {
+      color: var(--text-white);
+      text-shadow: 0 0 20px var(--text-white);
+      animation: warningPulse 1s ease-in-out infinite;
+    }
+
+    @keyframes warningPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .threat-status.danger {
+      color: var(--text-white);
+      text-shadow: 0 0 20px var(--text-white);
+      animation: dangerPulse 0.5s ease-in-out infinite;
+    }
+
+    @keyframes dangerPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    .threat-stats {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      margin-top: 0.5rem;
+    }
+
+    .threat-stats span {
+      color: var(--text-white);
+    }
+
+    /* ============================================ */
+    /* 🔢 ENCRYPTED MESSAGES - BLACK & WHITE */
+    /* ============================================ */
+    .encrypted-message {
+      position: fixed;
+      top: 20%;
+      right: -400px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid var(--text-white);
+      border-left: 5px solid var(--text-white);
+      padding: 1.5rem;
+      max-width: 350px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+      z-index: 98;
+      font-family: 'Share Tech Mono', monospace;
+      animation: messageSlideIn 0.5s forwards, messageSlideOut 0.5s 8s forwards;
+    }
+
+    @keyframes messageSlideIn {
+      to { right: 30px; }
+    }
+
+    @keyframes messageSlideOut {
+      to { right: -400px; }
+    }
+
+    .encrypted-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .encrypted-label {
+      color: var(--text-white);
+      font-size: 0.8rem;
+      text-shadow: 0 0 10px var(--text-white);
+      letter-spacing: 0.2em;
+    }
+
+    .encrypted-close {
+      background: none;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .encrypted-close:hover {
+      text-shadow: 0 0 15px var(--text-white);
+      transform: scale(1.2);
+    }
+
+    .encrypted-content {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      word-break: break-all;
+    }
+
+    .encrypted-cipher {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.8rem;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.75rem;
+      color: var(--text-white);
+      text-shadow: 0 0 10px var(--text-white);
+      margin-top: 0.5rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    .encrypted-decode-btn {
+      background: transparent;
+      border: 1px solid var(--text-white);
+      color: var(--text-white);
+      padding: 0.5rem 1rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .encrypted-decode-btn:hover {
+      background: var(--text-white);
+      color: #000;
+      box-shadow: 0 0 20px var(--text-white);
+    }
+
+    .encrypted-decode-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ============================================ */
+    /* 🎮 INTERACTIVE GRID */
+    /* ============================================ */
+    .interactive-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    .grid-cell {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s;
+    }
+
+    .grid-cell.active {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--text-white);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    /* ============================================ */
+    /* ORIGINAL STYLES */
+    /* ============================================ */
+
     .custom-cursor {
       position: fixed;
       width: 20px;
@@ -146,7 +686,6 @@
       }
     }
 
-    /* Click Particles */
     .particle {
       position: fixed;
       width: 4px;
@@ -166,62 +705,10 @@
       }
     }
 
-    /* Loading Animation */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg-black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s, visibility 0.5s;
-    }
-
-    .loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .terminal-loader {
-      font-family: 'Share Tech Mono', monospace;
-      color: var(--neon-white);
-      font-size: 1.2rem;
-      text-align: center;
-      padding: 0 2rem;
-      text-shadow: var(--glow);
-      border: 2px solid var(--neon-white);
-      padding: 2rem;
-      animation: loaderPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes loaderPulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
-      50% { box-shadow: 0 0 50px rgba(255, 255, 255, 1); }
-    }
-
-    .terminal-loader div {
-      min-height: 1.5em;
-      margin-bottom: 0.5rem;
-    }
-
-    .cursor {
-      animation: blink 0.8s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-
-    /* Countdown Timer */
     .countdown-container {
       position: fixed;
       top: 100px;
-      right: 30px;
+      left: 30px;
       background: rgba(0, 0, 0, 0.95);
       border: 2px solid var(--text-white);
       padding: 1.5rem;
@@ -248,11 +735,10 @@
       letter-spacing: 0.05em;
     }
 
-    /* Fake Metrics */
     .metrics-container {
       position: fixed;
-      top: 100px;
-      left: 30px;
+      bottom: 30px;
+      right: 30px;
       background: rgba(0, 0, 0, 0.95);
       border: 2px solid var(--text-white);
       padding: 1.5rem;
@@ -278,7 +764,7 @@
     .metric-bar {
       width: 100%;
       height: 8px;
-      background: var(--border-gray);
+      background: #333;
       border-radius: 4px;
       overflow: hidden;
       position: relative;
@@ -297,7 +783,6 @@
       50% { opacity: 0.7; }
     }
 
-    /* Random Quote */
     .quote-container {
       position: fixed;
       bottom: 100px;
@@ -323,7 +808,6 @@
       to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
-    /* Notification Popup */
     .notification {
       position: fixed;
       top: 30px;
@@ -355,7 +839,6 @@
       margin-right: 0.5rem;
     }
 
-    /* Terminal Modal */
     .terminal-modal {
       position: fixed;
       top: 50%;
@@ -451,7 +934,6 @@
       outline: none;
     }
 
-    /* Background Container */
     .cyberpunk-bg {
       position: fixed;
       top: 0;
@@ -463,22 +945,7 @@
       background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
     }
 
-    /* Animated Grid - Multiple Layers */
     .grid-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 51%),
-        linear-gradient(0deg, transparent 49%, rgba(255, 255, 255, 0.1) 49%, rgba(255, 255, 255, 0.1) 51%, transparent 51%);
-      background-size: 40px 40px;
-      animation: gridMove 15s linear infinite;
-      opacity: 0.4;
-    }
-
-    .grid-overlay-2 {
       position: absolute;
       top: 0;
       left: 0;
@@ -487,9 +954,9 @@
       background: 
         linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.05) 49%, rgba(255, 255, 255, 0.05) 51%, transparent 51%),
         linear-gradient(0deg, transparent 49%, rgba(255, 255, 255, 0.05) 49%, rgba(255, 255, 255, 0.05) 51%, transparent 51%);
-      background-size: 80px 80px;
-      animation: gridMove 25s linear infinite reverse;
-      opacity: 0.3;
+      background-size: 40px 40px;
+      animation: gridMove 15s linear infinite;
+      opacity: 0.4;
     }
 
     @keyframes gridMove {
@@ -497,7 +964,6 @@
       100% { background-position: 40px 40px; }
     }
 
-    /* Matrix Rain Effect */
     .matrix-rain {
       position: absolute;
       top: 0;
@@ -523,7 +989,6 @@
       100% { top: 100%; }
     }
 
-    /* Particles/Stars - More of them */
     .stars {
       position: absolute;
       top: 0;
@@ -548,54 +1013,6 @@
       50% { opacity: 1; transform: scale(1.5); }
     }
 
-    /* Lightning Bolts */
-    .lightning {
-      position: absolute;
-      width: 2px;
-      height: 100%;
-      background: linear-gradient(180deg, transparent 0%, var(--text-white) 50%, transparent 100%);
-      box-shadow: 0 0 20px var(--text-white);
-      opacity: 0;
-      animation: lightningStrike 4s ease-in-out infinite;
-    }
-
-    @keyframes lightningStrike {
-      0%, 90%, 100% { opacity: 0; }
-      91%, 93%, 95% { opacity: 1; }
-      92%, 94% { opacity: 0.3; }
-    }
-
-    /* Energy Waves */
-    .energy-wave {
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--text-white), transparent);
-      box-shadow: 0 0 20px var(--text-white);
-      animation: waveMove 3s linear infinite;
-    }
-
-    @keyframes waveMove {
-      0% { transform: translateY(0) scaleX(0); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(100vh) scaleX(1); opacity: 0; }
-    }
-
-    /* Pulse Circles */
-    .pulse-circle {
-      position: absolute;
-      border: 2px solid var(--text-white);
-      border-radius: 50%;
-      box-shadow: 0 0 30px var(--text-white);
-      animation: pulseExpand 4s ease-out infinite;
-    }
-
-    @keyframes pulseExpand {
-      0% { width: 50px; height: 50px; opacity: 1; }
-      100% { width: 300px; height: 300px; opacity: 0; }
-    }
-
-    /* City Skyline */
     .city-skyline {
       position: absolute;
       bottom: 0;
@@ -647,7 +1064,6 @@
     .building-7 { width: 80px; height: 260px; animation-delay: 1.8s; }
     .building-8 { width: 95px; height: 310px; animation-delay: 2.1s; }
 
-    /* Windows */
     .window {
       position: absolute;
       width: 6px;
@@ -662,7 +1078,6 @@
       50% { opacity: 0.1; }
     }
 
-    /* Flying Cars - MORE! */
     .flying-car {
       position: absolute;
       width: 70px;
@@ -716,7 +1131,286 @@
       100% { left: calc(100% + 100px); }
     }
 
-    /* Floating Robots - MORE! */
+    /* Spaceships - Naves Espaciais */
+    .spaceship {
+      position: absolute;
+      width: 80px;
+      height: 35px;
+      background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #888888 100%);
+      clip-path: polygon(0% 50%, 20% 20%, 60% 20%, 100% 50%, 60% 80%, 20% 80%);
+      border: 2px solid var(--text-white);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
+      animation: flySpaceship linear infinite;
+      z-index: 4;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .spaceship:hover {
+      animation-duration: 6s !important;
+      filter: brightness(1.8);
+      transform: scale(1.2);
+    }
+
+    .spaceship::before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: rgba(0, 200, 255, 0.6);
+      border-radius: 50%;
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 1);
+      animation: engineGlow 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes engineGlow {
+      0% { opacity: 0.6; transform: translateY(-50%) scale(0.8); }
+      100% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+    }
+
+    .spaceship::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.8));
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
+    }
+
+    .ship-1 { top: 18%; animation-duration: 13s; animation-delay: 1s; }
+    .ship-2 { top: 32%; animation-duration: 17s; animation-delay: 5s; }
+    .ship-3 { top: 48%; animation-duration: 15s; animation-delay: 3s; }
+    .ship-4 { top: 62%; animation-duration: 19s; animation-delay: 7s; }
+
+    @keyframes flySpaceship {
+      0% { left: -120px; }
+      100% { left: calc(100% + 120px); }
+    }
+
+    /* ============================================ */
+    /* 👼 DIGITAL ANGELS - ANJOS DIGITAIS GUARDIÕES */
+    /* ============================================ */
+    .digital-angel {
+      position: absolute;
+      width: 120px;
+      height: 140px;
+      animation: angelFloat 6s ease-in-out infinite;
+      z-index: 3;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .digital-angel:hover {
+      animation-duration: 3s;
+      transform: scale(1.3) !important;
+      filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
+    }
+
+    @keyframes angelFloat {
+      0%, 100% { 
+        transform: translateY(0) rotate(-2deg); 
+        opacity: 0.7;
+      }
+      50% { 
+        transform: translateY(-30px) rotate(2deg); 
+        opacity: 1;
+      }
+    }
+
+    /* Angel Body */
+    .angel-body {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+      border: 2px solid var(--text-white);
+      border-radius: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 30px;
+      box-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.8),
+        inset 0 0 15px rgba(255, 255, 255, 0.5);
+      animation: bodyGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes bodyGlow {
+      0%, 100% { 
+        box-shadow: 
+          0 0 20px rgba(255, 255, 255, 0.8),
+          inset 0 0 15px rgba(255, 255, 255, 0.5);
+      }
+      50% { 
+        box-shadow: 
+          0 0 40px rgba(255, 255, 255, 1),
+          inset 0 0 25px rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    /* Angel Head */
+    .angel-head {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background: radial-gradient(circle, #ffffff 0%, #f0f0f0 100%);
+      border: 2px solid var(--text-white);
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 8px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 1);
+    }
+
+    /* Angel Halo */
+    .angel-halo {
+      position: absolute;
+      width: 40px;
+      height: 10px;
+      border: 3px solid var(--text-white);
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 1);
+      animation: haloPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes haloPulse {
+      0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+      50% { 
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.7;
+      }
+    }
+
+    /* Angel Wings - Wireframe Style */
+    .angel-wing {
+      position: absolute;
+      width: 50px;
+      height: 60px;
+      top: 35px;
+      border: 2px solid var(--text-white);
+      border-radius: 50% 0 50% 50%;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+      animation: wingFlap 2s ease-in-out infinite;
+    }
+
+    .angel-wing.left {
+      left: -15px;
+      transform-origin: right center;
+    }
+
+    .angel-wing.right {
+      right: -15px;
+      transform-origin: left center;
+      transform: scaleX(-1);
+    }
+
+    @keyframes wingFlap {
+      0%, 100% { 
+        transform: rotate(0deg) scaleY(1);
+      }
+      25% { 
+        transform: rotate(-15deg) scaleY(0.9);
+      }
+      75% { 
+        transform: rotate(15deg) scaleY(0.9);
+      }
+    }
+
+    .angel-wing.right {
+      animation-name: wingFlapRight;
+    }
+
+    @keyframes wingFlapRight {
+      0%, 100% { 
+        transform: scaleX(-1) rotate(0deg) scaleY(1);
+      }
+      25% { 
+        transform: scaleX(-1) rotate(-15deg) scaleY(0.9);
+      }
+      75% { 
+        transform: scaleX(-1) rotate(15deg) scaleY(0.9);
+      }
+    }
+
+    /* Wing Details */
+    .wing-detail {
+      position: absolute;
+      width: 30px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50% 0 50% 50%;
+      top: 10px;
+      left: 10px;
+    }
+
+    /* Light Rays from Angels */
+    .angel-light {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent);
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+      animation: lightRay 3s ease-in-out infinite;
+    }
+
+    @keyframes lightRay {
+      0%, 100% { 
+        opacity: 0.6;
+        height: 80px;
+      }
+      50% { 
+        opacity: 1;
+        height: 120px;
+      }
+    }
+
+    /* Angel Positions */
+    .angel-1 { top: 25%; left: 20%; animation-delay: 0s; }
+    .angel-2 { top: 30%; right: 15%; animation-delay: 2s; }
+    .angel-3 { top: 60%; left: 15%; animation-delay: 4s; }
+    .angel-4 { top: 55%; right: 20%; animation-delay: 1s; }
+    .angel-5 { top: 40%; left: 50%; transform: translateX(-50%); animation-delay: 3s; }
+
+    /* Angel Particle Effects */
+    .angel-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--text-white);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--text-white);
+      animation: particleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes particleFloat {
+      0% { 
+        opacity: 0;
+        transform: translateY(0) translateX(0);
+      }
+      50% { 
+        opacity: 1;
+      }
+      100% { 
+        opacity: 0;
+        transform: translateY(-100px) translateX(var(--particle-x));
+      }
+    }
+
     .robot {
       position: absolute;
       width: 60px;
@@ -812,129 +1506,6 @@
       50% { transform: translateY(-25px) rotate(3deg); }
     }
 
-    /* Drones - MORE! */
-    .drone {
-      position: absolute;
-      width: 50px;
-      height: 18px;
-      background: linear-gradient(90deg, #ffffff, #aaaaaa);
-      border: 2px solid var(--text-white);
-      border-radius: 25px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-      animation: droneFly ease-in-out infinite;
-      z-index: 5;
-    }
-
-    .drone::before,
-    .drone::after {
-      content: '';
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border: 3px solid var(--text-white);
-      border-radius: 50%;
-      top: -10px;
-      box-shadow: 0 0 15px var(--text-white);
-      animation: propeller 0.3s linear infinite;
-    }
-
-    .drone::before { left: 3px; }
-    .drone::after { right: 3px; }
-
-    @keyframes propeller {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .drone-1 { top: 28%; animation-duration: 8s; animation-delay: 0s; }
-    .drone-2 { top: 52%; animation-duration: 12s; animation-delay: 4s; }
-    .drone-3 { top: 40%; animation-duration: 10s; animation-delay: 2s; }
-
-    @keyframes droneFly {
-      0%, 100% { left: -60px; }
-      50% { left: calc(100% + 60px); }
-    }
-
-    /* Hologram Rings - Multiple */
-    .hologram {
-      position: absolute;
-      border: 3px solid var(--text-white);
-      border-radius: 50%;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
-      animation: rotateHologram linear infinite;
-      opacity: 0.4;
-    }
-
-    .hologram-1 {
-      width: 150px;
-      height: 150px;
-      top: 40%;
-      left: 40%;
-      animation-duration: 12s;
-    }
-
-    .hologram-2 {
-      width: 200px;
-      height: 200px;
-      top: 35%;
-      left: 35%;
-      animation-duration: 18s;
-      animation-direction: reverse;
-    }
-
-    .hologram-3 {
-      width: 100px;
-      height: 100px;
-      bottom: 30%;
-      right: 20%;
-      animation-duration: 10s;
-    }
-
-    @keyframes rotateHologram {
-      0% { transform: rotateY(0deg) rotateX(0deg); }
-      100% { transform: rotateY(360deg) rotateX(360deg); }
-    }
-
-    /* Scan Lines - Multiple */
-    .scan-line {
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--text-white), transparent);
-      box-shadow: 0 0 15px var(--text-white);
-      animation: scan linear infinite;
-    }
-
-    .scan-line-1 { animation-duration: 3s; animation-delay: 0s; }
-    .scan-line-2 { animation-duration: 5s; animation-delay: 1s; opacity: 0.6; }
-    .scan-line-3 { animation-duration: 4s; animation-delay: 2s; opacity: 0.4; }
-
-    @keyframes scan {
-      0% { top: 0%; }
-      100% { top: 100%; }
-    }
-
-    /* Glitch Effect Overlay */
-    .glitch-overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1) 0px,
-        transparent 2px,
-        transparent 4px
-      );
-      pointer-events: none;
-      animation: glitchScan 0.5s steps(2, end) infinite;
-    }
-
-    @keyframes glitchScan {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(10px); }
-    }
-
-    /* Header */
     header {
       position: fixed;
       top: 0;
@@ -984,14 +1555,22 @@
       }
     }
 
-    /* Language Selector */
+    /* Language Selector with Dropdown */
     .language-selector {
       display: flex;
-      gap: 0.6rem;
       align-items: center;
+      gap: 1rem;
+      position: relative;
     }
 
-    .lang-btn {
+    .language-dropdown {
+      position: relative;
+    }
+
+    .lang-current {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       background: transparent;
       border: 2px solid var(--text-white);
       color: var(--text-white);
@@ -1004,21 +1583,124 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
     }
 
-    .lang-btn:hover {
+    .lang-current:hover {
       box-shadow: var(--glow);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       background: rgba(255, 255, 255, 0.1);
     }
 
-    .lang-btn.active {
+    .lang-current.active {
       background: var(--text-white);
       color: var(--bg-black);
       box-shadow: var(--glow-intense);
     }
 
-    /* Main Content */
+    .lang-flag {
+      font-size: 1.2rem;
+    }
+
+    .lang-arrow {
+      font-size: 0.7rem;
+      transition: transform 0.3s;
+    }
+
+    .lang-current.active .lang-arrow {
+      transform: rotate(180deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: rgba(0, 0, 0, 0.98);
+      border: 2px solid var(--text-white);
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+      padding: 0.5rem;
+      min-width: 200px;
+      display: none;
+      flex-direction: column;
+      gap: 0.3rem;
+      z-index: 1000;
+      animation: menuSlide 0.3s ease-out;
+    }
+
+    @keyframes menuSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .lang-menu.active {
+      display: flex;
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.6rem 0.8rem;
+      cursor: pointer;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-white);
+      border-radius: 5px;
+      transition: all 0.3s;
+      border: 1px solid transparent;
+    }
+
+    .lang-option:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      transform: translateX(5px);
+    }
+
+    .lang-option.selected {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--text-white);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .lang-option-flag {
+      font-size: 1.5rem;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .lang-option-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .lang-option-code {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .lang-option-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .lang-option-native {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      font-style: italic;
+    }
+
     main {
       flex: 1;
       display: flex;
@@ -1035,7 +1717,7 @@
       max-width: 850px;
       padding: 3rem;
       animation: fadeInUp 1s ease-out;
-      background: #000000;
+      background: rgba(0, 0, 0, 0.8);
       border: 3px solid var(--text-white);
       border-radius: 20px;
       box-shadow: var(--glow-intense);
@@ -1213,7 +1895,6 @@
       }
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2rem;
@@ -1237,7 +1918,6 @@
       }
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
       body {
         cursor: default;
@@ -1247,40 +1927,51 @@
         display: none;
       }
 
+      .neural-network,
+      .radar-container,
+      .threat-indicator,
       .countdown-container,
       .metrics-container {
         display: none;
+      }
+
+      .encrypted-message {
+        max-width: 90%;
+        right: -100%;
+      }
+
+      header {
+        padding: 1rem;
+      }
+
+      .logo { font-size: 1.3rem; }
+      main { padding-top: 100px; }
+      h1 { font-size: 2.2rem; }
+      .construction-year { font-size: 5.5rem; }
+      .construction-icon { font-size: 4rem; }
+      .subtitle { font-size: 1.1rem; }
+      .status-indicators { gap: 1.5rem; flex-direction: column; }
+
+      .lang-menu {
+        right: auto;
+        left: 0;
+      }
+      
+      .building { width: 50px !important; }
+      .robot { display: none; }
+      .flying-car:nth-child(n+4) { display: none; }
+      .spaceship:nth-child(n+3) { display: none; }
+      .digital-angel:nth-child(n+4) { display: none; }
+
+      .terminal-modal {
+        width: 95%;
+        height: 80%;
       }
 
       .quote-container {
         bottom: 120px;
         font-size: 0.8rem;
         padding: 0.8rem 1.5rem;
-      }
-
-      header {
-        padding: 1rem;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .logo { font-size: 1.3rem; }
-      main { padding-top: 140px; }
-      h1 { font-size: 2.2rem; }
-      .construction-year { font-size: 5.5rem; }
-      .construction-icon { font-size: 4rem; }
-      .subtitle { font-size: 1.1rem; }
-      .status-indicators { gap: 1.5rem; }
-      .language-selector { gap: 0.4rem; }
-      .lang-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
-      
-      .building { width: 50px !important; }
-      .robot, .drone { display: none; }
-      .flying-car:nth-child(n+4) { display: none; }
-
-      .terminal-modal {
-        width: 95%;
-        height: 80%;
       }
     }
 
@@ -1289,7 +1980,6 @@
       h1 { font-size: 1.7rem; }
       .construction-icon { font-size: 3rem; }
       .subtitle { font-size: 0.95rem; }
-      .status-indicators { flex-direction: column; gap: 1rem; }
       .city-skyline { height: 30%; }
       .construction-content { padding: 2rem 1.5rem; }
       
@@ -1298,27 +1988,96 @@
         padding: 0.6rem 1rem;
         max-width: 90%;
       }
+
+      main { padding-top: 120px; }
+
+      .digital-angel {
+        width: 80px;
+        height: 100px;
+      }
+
+      .angel-body {
+        width: 20px;
+        height: 35px;
+      }
+
+      .angel-head {
+        width: 20px;
+        height: 20px;
+      }
+
+      .angel-wing {
+        width: 35px;
+        height: 45px;
+      }
+
+      .spaceship {
+        width: 60px;
+        height: 25px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="customCursor"></div>
-
-  <div class="loading-screen" id="loading">
-    <div class="terminal-loader">
-      <div>╔══════════════════════════════════╗</div>
-      <div>║   INITIALIZING SYSTEMS...        ║</div>
-      <div>║   LOADING QUANTUM PROTOCOLS...   ║</div>
-      <div>║   ESTABLISHING CONNECTION<span class="cursor">_</span>      ║</div>
-      <div>╚══════════════════════════════════╝</div>
+  <!-- 🎬 BOOT SEQUENCE -->
+  <div class="boot-sequence" id="bootSequence">
+    <div id="bootMessages"></div>
+    <div class="boot-progress">
+      <div class="boot-progress-bar" id="bootProgressBar"></div>
     </div>
   </div>
 
+  <!-- 📺 CRT OVERLAY -->
+  <div class="crt-overlay"></div>
+
+  <!-- 🔐 BIOMETRIC SCANNER -->
+  <div class="biometric-scanner" id="biometricScanner">
+    <div class="scanner-container">
+      <div class="scanner-status" data-i18n="biometric-auth">BIOMETRIC AUTHENTICATION</div>
+      <div class="scanner-progress" id="scanProgress">0%</div>
+      <div class="fingerprint">
+        <div class="scan-line"></div>
+      </div>
+      <div style="color: var(--text-gray); font-size: 0.9rem; margin-top: 1rem;" data-i18n="place-finger">
+        Place finger on scanner
+      </div>
+    </div>
+  </div>
+
+  <!-- 📡 RADAR SWEEP -->
+  <div class="radar-container">
+    <div class="radar-grid"></div>
+    <div class="radar-sweep"></div>
+    <div class="radar-blip" style="top: 30%; left: 60%;"></div>
+    <div class="radar-blip" style="top: 70%; left: 40%; animation-delay: 0.5s;"></div>
+    <div class="radar-blip" style="top: 50%; left: 80%; animation-delay: 1s;"></div>
+    <div class="radar-label" data-i18n="threat-detection">THREAT DETECTION</div>
+  </div>
+
+  <!-- 📊 THREAT INDICATOR -->
+  <div class="threat-indicator">
+    <div class="threat-level" data-i18n="security-status">SECURITY STATUS:</div>
+    <div class="threat-status" id="threatStatus" data-i18n="secure">SECURE</div>
+    <div class="threat-stats">
+      <div><span data-i18n="intrusions">Intrusions blocked:</span> <span id="intrusionsBlocked">0</span></div>
+      <div><span data-i18n="firewall">Firewall:</span> <span style="color: var(--text-white);" data-i18n="active">ACTIVE</span></div>
+      <div><span data-i18n="last-scan">Last scan:</span> <span id="lastScan" data-i18n="just-now">Just now</span></div>
+    </div>
+  </div>
+
+  <!-- 🧠 NEURAL NETWORK -->
+  <div class="neural-network" id="neuralNetwork"></div>
+
+  <!-- 🎮 INTERACTIVE GRID -->
+  <div class="interactive-grid" id="interactiveGrid"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+
   <!-- Countdown Timer -->
   <div class="countdown-container" id="countdown">
-    <div class="countdown-title">LAUNCH IN:</div>
+    <div class="countdown-title" data-i18n="countdown-title">LAUNCH IN:</div>
     <div class="countdown-time" id="countdownTime">00:00:00:00</div>
   </div>
 
@@ -1385,59 +2144,88 @@
 
   <!-- Background Effects -->
   <div class="cyberpunk-bg">
-    <!-- Grid Overlays -->
     <div class="grid-overlay"></div>
-    <div class="grid-overlay-2"></div>
-
-    <!-- Glitch Overlay -->
-    <div class="glitch-overlay"></div>
-
-    <!-- Matrix Rain -->
     <div class="matrix-rain" id="matrix"></div>
-
-    <!-- Scan Lines -->
-    <div class="scan-line scan-line-1"></div>
-    <div class="scan-line scan-line-2"></div>
-    <div class="scan-line scan-line-3"></div>
-
-    <!-- Stars -->
     <div class="stars" id="stars"></div>
-
-    <!-- Lightning Bolts -->
-    <div class="lightning" id="lightning1" style="left: 20%;"></div>
-    <div class="lightning" id="lightning2" style="left: 50%;"></div>
-    <div class="lightning" id="lightning3" style="left: 80%;"></div>
-
-    <!-- Energy Waves -->
-    <div class="energy-wave" style="animation-delay: 0s;"></div>
-    <div class="energy-wave" style="animation-delay: 1.5s;"></div>
-
-    <!-- Pulse Circles -->
-    <div class="pulse-circle" style="top: 30%; left: 20%; animation-delay: 0s;"></div>
-    <div class="pulse-circle" style="top: 50%; right: 25%; animation-delay: 2s;"></div>
-    <div class="pulse-circle" style="bottom: 30%; left: 60%; animation-delay: 1s;"></div>
-
-    <!-- Hologram Rings -->
-    <div class="hologram hologram-1"></div>
-    <div class="hologram hologram-2"></div>
-    <div class="hologram hologram-3"></div>
-
-    <!-- City Skyline -->
     <div class="city-skyline" id="city"></div>
-
-    <!-- Flying Cars (5) -->
     <div class="flying-car car-1"></div>
     <div class="flying-car car-2"></div>
     <div class="flying-car car-3"></div>
     <div class="flying-car car-4"></div>
     <div class="flying-car car-5"></div>
 
-    <!-- Drones (3) -->
-    <div class="drone drone-1"></div>
-    <div class="drone drone-2"></div>
-    <div class="drone drone-3"></div>
+    <!-- Spaceships - Naves Espaciais -->
+    <div class="spaceship ship-1"></div>
+    <div class="spaceship ship-2"></div>
+    <div class="spaceship ship-3"></div>
+    <div class="spaceship ship-4"></div>
 
-    <!-- Floating Robots (5) -->
+    <!-- Digital Angels - Anjos Digitais Guardiões -->
+    <div class="digital-angel angel-1">
+      <div class="angel-halo"></div>
+      <div class="angel-head"></div>
+      <div class="angel-body"></div>
+      <div class="angel-wing left">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-wing right">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-light"></div>
+    </div>
+
+    <div class="digital-angel angel-2">
+      <div class="angel-halo"></div>
+      <div class="angel-head"></div>
+      <div class="angel-body"></div>
+      <div class="angel-wing left">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-wing right">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-light"></div>
+    </div>
+
+    <div class="digital-angel angel-3">
+      <div class="angel-halo"></div>
+      <div class="angel-head"></div>
+      <div class="angel-body"></div>
+      <div class="angel-wing left">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-wing right">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-light"></div>
+    </div>
+
+    <div class="digital-angel angel-4">
+      <div class="angel-halo"></div>
+      <div class="angel-head"></div>
+      <div class="angel-body"></div>
+      <div class="angel-wing left">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-wing right">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-light"></div>
+    </div>
+
+    <div class="digital-angel angel-5">
+      <div class="angel-halo"></div>
+      <div class="angel-head"></div>
+      <div class="angel-body"></div>
+      <div class="angel-wing left">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-wing right">
+        <div class="wing-detail"></div>
+      </div>
+      <div class="angel-light"></div>
+    </div>
+
     <div class="robot robot-1">
       <div class="robot-body">
         <div class="robot-head">
@@ -1488,14 +2276,84 @@
   <header>
     <div class="logo" id="logo">⚡ LogNullSec™ ⚡</div>
     <div class="language-selector">
-      <button class="lang-btn" data-lang="pt">PT</button>
-      <button class="lang-btn" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="es">ES</button>
+      <div class="language-dropdown" id="langDropdown">
+        <button class="lang-current" id="langCurrent">
+          <span class="lang-flag" id="currentFlag">🇧🇷</span>
+          <span id="currentLangCode">PT</span>
+          <span class="lang-arrow">▼</span>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <div class="lang-option" data-lang="pt">
+            <span class="lang-option-flag">🇧🇷</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">PT-BR</span>
+              <span class="lang-option-name">Portuguese</span>
+              <span class="lang-option-native">Português</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="en">
+            <span class="lang-option-flag">🇺🇸</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">EN-US</span>
+              <span class="lang-option-name">English</span>
+              <span class="lang-option-native">English</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="es">
+            <span class="lang-option-flag">🇪🇸</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">ES-ES</span>
+              <span class="lang-option-name">Spanish</span>
+              <span class="lang-option-native">Español</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="fr">
+            <span class="lang-option-flag">🇫🇷</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">FR-FR</span>
+              <span class="lang-option-name">French</span>
+              <span class="lang-option-native">Français</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="de">
+            <span class="lang-option-flag">🇩🇪</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">DE-DE</span>
+              <span class="lang-option-name">German</span>
+              <span class="lang-option-native">Deutsch</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="jp">
+            <span class="lang-option-flag">🇯🇵</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">JA-JP</span>
+              <span class="lang-option-name">Japanese</span>
+              <span class="lang-option-native">日本語</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="cn">
+            <span class="lang-option-flag">🇨🇳</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">ZH-CN</span>
+              <span class="lang-option-name">Chinese</span>
+              <span class="lang-option-native">中文</span>
+            </div>
+          </div>
+          <div class="lang-option" data-lang="ru">
+            <span class="lang-option-flag">🇷🇺</span>
+            <div class="lang-option-details">
+              <span class="lang-option-code">RU-RU</span>
+              <span class="lang-option-name">Russian</span>
+              <span class="lang-option-native">Русский</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
   <main>
-    <div class="construction-content">
+    <div class="construction-content screen-curve">
       <div class="construction-icon" id="mainIcon">
         <i class="fas fa-robot"></i>
       </div>
@@ -1530,38 +2388,24 @@
   </footer>
 
   <script>
-    // ============================================
-    // 🔒 SECURITY NOTE - Anti-Tampering
-    // ============================================
-    // This code integrity check helps detect unauthorized modifications
-    (function() {
-      'use strict';
-      
-      // Disable right-click context menu (optional - can be removed if not desired)
-      // document.addEventListener('contextmenu', e => e.preventDefault());
-      
-      // Detect DevTools (optional - can be removed)
-      // const devtools = /./;
-      // devtools.toString = function() {
-      //   console.log('%c🔒 LogNullSec™ Security Active', 'color: #0f0; font-size: 14px;');
-      // };
-      
-      console.log('%c🔒 SECURITY HEADERS ACTIVE', 'background: #000; color: #0f0; font-size: 16px; padding: 10px;');
-    })();
+    'use strict';
 
-    // ===== CONSOLE LOGS ESTILIZADOS =====
     console.log('%c⚡ SYSTEM BREACH DETECTED! ⚡', 'background: #000; color: #fff; font-size: 20px; padding: 10px; font-family: monospace;');
-    console.log('%cInitializing countermeasures...', 'color: #0f0; font-family: monospace;');
-    console.log('%c⚡ Welcome to LogNullSec™ ⚡', 'background: #000; color: #fff; font-size: 16px; padding: 5px; font-family: monospace;');
-    console.log('%cExpected launch: 2033', 'color: #fff; font-family: monospace;');
-    console.log('%c🤖 All systems operational', 'color: #0f0; font-family: monospace;');
-    console.log('%c🔒 Security: Maximum', 'color: #0f0; font-family: monospace;');
-    console.log('%cPress Ctrl+K to open terminal', 'color: #888; font-family: monospace;');
-    console.log('%cPress M for Matrix Mode', 'color: #888; font-family: monospace;');
+    console.log('%c🔒 Security Level: MAXIMUM', 'color: #fff; font-family: monospace;');
+    console.log('%c🧠 Neural Network: ONLINE', 'color: #fff; font-family: monospace;');
+    console.log('%c📡 Threat Detection: ACTIVE', 'color: #fff; font-family: monospace;');
+    console.log('%c🔊 Sound System: ENABLED', 'color: #fff; font-family: monospace;');
+    console.log('%c🚀 Spaceships: DEPLOYED', 'color: #fff; font-family: monospace;');
+    console.log('%c👼 Digital Angels: PROTECTING', 'color: #fff; font-family: monospace;');
+    console.log('%c🎨 Design Theme: BLACK & WHITE', 'color: #fff; font-weight: bold; font-family: monospace;');
 
-    // Translations
+    // ========================================
+    // 🌍 TRANSLATIONS - 8 LANGUAGES
+    // ========================================
     const translations = {
       pt: {
+        flag: '🇧🇷',
+        name: 'Português',
         title: 'EM CONSTRUÇÃO',
         tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Sistemas Em Desenvolvimento',
@@ -1569,9 +2413,22 @@
         status2: 'AI SYSTEMS',
         status3: 'BLOCKCHAIN CORE',
         copyright: '© 2025 LogNullSec™ | Todos os direitos reservados.',
-        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.'
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'LANÇAMENTO EM:',
+        'biometric-auth': 'AUTENTICAÇÃO BIOMÉTRICA',
+        'place-finger': 'Coloque o dedo no scanner',
+        'threat-detection': 'DETECÇÃO DE AMEAÇAS',
+        'security-status': 'STATUS DE SEGURANÇA:',
+        'secure': 'SEGURO',
+        'intrusions': 'Invasões bloqueadas:',
+        'firewall': 'Firewall:',
+        'active': 'ATIVO',
+        'last-scan': 'Último scan:',
+        'just-now': 'Agora mesmo'
       },
       en: {
+        flag: '🇺🇸',
+        name: 'English',
         title: 'UNDER CONSTRUCTION',
         tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Systems Under Development',
@@ -1579,9 +2436,22 @@
         status2: 'AI SYSTEMS',
         status3: 'BLOCKCHAIN CORE',
         copyright: '© 2025 LogNullSec™ | All rights reserved.',
-        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.'
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'LAUNCH IN:',
+        'biometric-auth': 'BIOMETRIC AUTHENTICATION',
+        'place-finger': 'Place finger on scanner',
+        'threat-detection': 'THREAT DETECTION',
+        'security-status': 'SECURITY STATUS:',
+        'secure': 'SECURE',
+        'intrusions': 'Intrusions blocked:',
+        'firewall': 'Firewall:',
+        'active': 'ACTIVE',
+        'last-scan': 'Last scan:',
+        'just-now': 'Just now'
       },
       es: {
+        flag: '🇪🇸',
+        name: 'Español',
         title: 'EN CONSTRUCCIÓN',
         tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Sistemas En Desarrollo',
@@ -1589,11 +2459,542 @@
         status2: 'AI SYSTEMS',
         status3: 'BLOCKCHAIN CORE',
         copyright: '© 2025 LogNullSec™ | Todos los derechos reservados.',
-        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.'
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'LANZAMIENTO EN:',
+        'biometric-auth': 'AUTENTICACIÓN BIOMÉTRICA',
+        'place-finger': 'Coloque el dedo en el escáner',
+        'threat-detection': 'DETECCIÓN DE AMENAZAS',
+        'security-status': 'ESTADO DE SEGURIDAD:',
+        'secure': 'SEGURO',
+        'intrusions': 'Intrusiones bloqueadas:',
+        'firewall': 'Firewall:',
+        'active': 'ACTIVO',
+        'last-scan': 'Último escaneo:',
+        'just-now': 'Justo ahora'
+      },
+      fr: {
+        flag: '🇫🇷',
+        name: 'Français',
+        title: 'EN CONSTRUCTION',
+        tagline: '⚡ Hack The Future ⚡',
+        subtitle: 'Systèmes En Développement',
+        status1: 'QUANTUM PROTOCOLS',
+        status2: 'AI SYSTEMS',
+        status3: 'BLOCKCHAIN CORE',
+        copyright: '© 2025 LogNullSec™ | Tous droits réservés.',
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'LANCEMENT DANS:',
+        'biometric-auth': 'AUTHENTIFICATION BIOMÉTRIQUE',
+        'place-finger': 'Placez le doigt sur le scanner',
+        'threat-detection': 'DÉTECTION DES MENACES',
+        'security-status': 'STATUT DE SÉCURITÉ:',
+        'secure': 'SÉCURISÉ',
+        'intrusions': 'Intrusions bloquées:',
+        'firewall': 'Pare-feu:',
+        'active': 'ACTIF',
+        'last-scan': 'Dernier scan:',
+        'just-now': 'À l\'instant'
+      },
+      de: {
+        flag: '🇩🇪',
+        name: 'Deutsch',
+        title: 'IM BAU',
+        tagline: '⚡ Hack The Future ⚡',
+        subtitle: 'Systeme In Entwicklung',
+        status1: 'QUANTUM PROTOCOLS',
+        status2: 'AI SYSTEMS',
+        status3: 'BLOCKCHAIN CORE',
+        copyright: '© 2025 LogNullSec™ | Alle Rechte vorbehalten.',
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'START IN:',
+        'biometric-auth': 'BIOMETRISCHE AUTHENTIFIZIERUNG',
+        'place-finger': 'Finger auf Scanner legen',
+        'threat-detection': 'BEDROHUNGSERKENNUNG',
+        'security-status': 'SICHERHEITSSTATUS:',
+        'secure': 'SICHER',
+        'intrusions': 'Einbrüche blockiert:',
+        'firewall': 'Firewall:',
+        'active': 'AKTIV',
+        'last-scan': 'Letzter Scan:',
+        'just-now': 'Gerade eben'
+      },
+      jp: {
+        flag: '🇯🇵',
+        name: '日本語',
+        title: '建設中',
+        tagline: '⚡ Hack The Future ⚡',
+        subtitle: 'システム開発中',
+        status1: 'QUANTUM PROTOCOLS',
+        status2: 'AI SYSTEMS',
+        status3: 'BLOCKCHAIN CORE',
+        copyright: '© 2025 LogNullSec™ | 全著作権所有。',
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': '発売まで:',
+        'biometric-auth': '生体認証',
+        'place-finger': 'スキャナーに指を置く',
+        'threat-detection': '脅威検出',
+        'security-status': 'セキュリティ状態:',
+        'secure': '安全',
+        'intrusions': 'ブロックされた侵入:',
+        'firewall': 'ファイアウォール:',
+        'active': 'アクティブ',
+        'last-scan': '最後のスキャン:',
+        'just-now': 'たった今'
+      },
+      cn: {
+        flag: '🇨🇳',
+        name: '中文',
+        title: '建设中',
+        tagline: '⚡ Hack The Future ⚡',
+        subtitle: '系统开发中',
+        status1: 'QUANTUM PROTOCOLS',
+        status2: 'AI SYSTEMS',
+        status3: 'BLOCKCHAIN CORE',
+        copyright: '© 2025 LogNullSec™ | 版权所有。',
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': '启动于:',
+        'biometric-auth': '生物识别认证',
+        'place-finger': '将手指放在扫描仪上',
+        'threat-detection': '威胁检测',
+        'security-status': '安全状态:',
+        'secure': '安全',
+        'intrusions': '已阻止入侵:',
+        'firewall': '防火墙:',
+        'active': '活跃',
+        'last-scan': '最后扫描:',
+        'just-now': '刚才'
+      },
+      ru: {
+        flag: '🇷🇺',
+        name: 'Русский',
+        title: 'В РАЗРАБОТКЕ',
+        tagline: '⚡ Hack The Future ⚡',
+        subtitle: 'Системы В Разработке',
+        status1: 'QUANTUM PROTOCOLS',
+        status2: 'AI SYSTEMS',
+        status3: 'BLOCKCHAIN CORE',
+        copyright: '© 2025 LogNullSec™ | Все права защищены.',
+        'footer-tagline': 'Hack responsibly. Build securely. Think quantum.',
+        'countdown-title': 'ЗАПУСК ЧЕРЕЗ:',
+        'biometric-auth': 'БИОМЕТРИЧЕСКАЯ АУТЕНТИФИКАЦИЯ',
+        'place-finger': 'Поместите палец на сканер',
+        'threat-detection': 'ОБНАРУЖЕНИЕ УГРОЗ',
+        'security-status': 'СТАТУС БЕЗОПАСНОСТИ:',
+        'secure': 'БЕЗОПАСНО',
+        'intrusions': 'Заблокировано вторжений:',
+        'firewall': 'Межсетевой экран:',
+        'active': 'АКТИВЕН',
+        'last-scan': 'Последнее сканирование:',
+        'just-now': 'Только что'
       }
     };
 
-    // ===== CUSTOM CURSOR =====
+    // ========================================
+    // 🌍 LANGUAGE MANAGEMENT
+    // ========================================
+    function detectBrowserLanguage() {
+      const lang = navigator.language || navigator.userLanguage;
+      const langCode = lang.split('-')[0].toLowerCase();
+      
+      const langMap = {
+        'pt': 'pt',
+        'en': 'en',
+        'es': 'es',
+        'fr': 'fr',
+        'de': 'de',
+        'ja': 'jp',
+        'zh': 'cn',
+        'ru': 'ru'
+      };
+      
+      return langMap[langCode] || 'en';
+    }
+
+    function getCurrentLanguage() {
+      return localStorage.getItem('language') || detectBrowserLanguage();
+    }
+
+    function changeLanguage(lang) {
+      if (!translations[lang]) return;
+      
+      localStorage.setItem('language', lang);
+      
+      const htmlLangMap = {
+        'pt': 'pt-BR',
+        'en': 'en-US',
+        'es': 'es-ES',
+        'fr': 'fr-FR',
+        'de': 'de-DE',
+        'jp': 'ja-JP',
+        'cn': 'zh-CN',
+        'ru': 'ru-RU'
+      };
+      document.documentElement.lang = htmlLangMap[lang];
+
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+
+      // Update chromatic text attributes
+      document.querySelectorAll('.chromatic[data-text]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key && translations[lang][key]) {
+          element.setAttribute('data-text', translations[lang][key]);
+        }
+      });
+
+      document.getElementById('currentFlag').textContent = translations[lang].flag;
+      document.getElementById('currentLangCode').textContent = lang.toUpperCase();
+
+      document.querySelectorAll('.lang-option').forEach(option => {
+        option.classList.remove('selected');
+        if (option.getAttribute('data-lang') === lang) {
+          option.classList.add('selected');
+        }
+      });
+
+      showNotification(`Language: ${translations[lang].name}`, translations[lang].flag);
+      playSound('success');
+    }
+
+    const langCurrent = document.getElementById('langCurrent');
+    const langMenu = document.getElementById('langMenu');
+
+    langCurrent.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langCurrent.classList.toggle('active');
+      langMenu.classList.toggle('active');
+      playSound('click');
+    });
+
+    document.addEventListener('click', () => {
+      langCurrent.classList.remove('active');
+      langMenu.classList.remove('active');
+    });
+
+    document.querySelectorAll('.lang-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const lang = option.getAttribute('data-lang');
+        changeLanguage(lang);
+        langCurrent.classList.remove('active');
+        langMenu.classList.remove('active');
+      });
+    });
+
+    // ============================================
+    // 🎬 BOOT SEQUENCE
+    // ============================================
+    const bootMessages = [
+      'Initializing quantum kernel...',
+      'Loading neural networks...',
+      'Establishing secure connection...',
+      'Checking biometric systems...',
+      'Mounting encrypted filesystems...',
+      'Starting AI subsystems...',
+      'Initializing blockchain protocols...',
+      'Calibrating threat detection...',
+      'Loading holographic interface...',
+      'System ready. Welcome, Agent.'
+    ];
+
+    function runBootSequence() {
+      const bootSequence = document.getElementById('bootSequence');
+      const bootMessagesEl = document.getElementById('bootMessages');
+      const bootProgressBar = document.getElementById('bootProgressBar');
+
+      let progress = 0;
+      let messageIndex = 0;
+
+      const interval = setInterval(() => {
+        if (messageIndex < bootMessages.length) {
+          const msgEl = document.createElement('div');
+          msgEl.className = 'boot-text';
+          msgEl.textContent = '> ' + bootMessages[messageIndex];
+          msgEl.style.animationDelay = '0s';
+          bootMessagesEl.appendChild(msgEl);
+
+          progress += 10;
+          bootProgressBar.style.width = progress + '%';
+
+          messageIndex++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            bootSequence.classList.add('hidden');
+            setTimeout(() => {
+              showBiometricScanner();
+            }, 1000);
+          }, 1000);
+        }
+      }, 300);
+    }
+
+    // ============================================
+    // 🔐 BIOMETRIC SCANNER
+    // ============================================
+    function showBiometricScanner() {
+      const scanner = document.getElementById('biometricScanner');
+      const scanProgress = document.getElementById('scanProgress');
+      scanner.classList.add('active');
+      playSound('alert');
+
+      let progress = 0;
+      const scanInterval = setInterval(() => {
+        progress += 5;
+        scanProgress.textContent = progress + '%';
+
+        if (progress >= 100) {
+          clearInterval(scanInterval);
+          scanProgress.textContent = 'ACCESS GRANTED';
+          scanProgress.style.color = '#fff';
+          scanProgress.style.textShadow = '0 0 40px rgba(255, 255, 255, 1)';
+          playSound('access');
+          
+          setTimeout(() => {
+            scanner.style.display = 'none';
+            showNotification('Authentication successful', '✅');
+          }, 1500);
+        }
+      }, 80);
+    }
+
+    // ============================================
+    // 📡 THREAT SYSTEM
+    // ============================================
+    let intrusionsCount = 0;
+    function updateThreatStatus() {
+      const statuses = ['SECURE', 'SECURE', 'SECURE', 'MONITORING', 'WARNING'];
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      const threatStatus = document.getElementById('threatStatus');
+      
+      const currentLang = getCurrentLanguage();
+      const secureText = translations[currentLang]['secure'] || 'SECURE';
+      
+      threatStatus.textContent = status === 'SECURE' ? secureText : status;
+      threatStatus.className = 'threat-status';
+      
+      if (status === 'WARNING') {
+        threatStatus.classList.add('warning');
+        playSound('alert');
+      } else if (status === 'DANGER') {
+        threatStatus.classList.add('danger');
+      }
+
+      if (Math.random() > 0.7) {
+        intrusionsCount++;
+        document.getElementById('intrusionsBlocked').textContent = intrusionsCount;
+      }
+    }
+
+    setInterval(updateThreatStatus, 8000);
+
+    // ============================================
+    // 🔢 ENCRYPTED MESSAGES
+    // ============================================
+    const encryptedMessages = [
+      {
+        label: 'INTERCEPTED TRANSMISSION',
+        content: 'Quantum signature detected. Origin: CLASSIFIED.',
+        cipher: 'TG9nTnVsbFNlYyBpcyBjb21pbmc='
+      },
+      {
+        label: 'SECURE CHANNEL ALPHA',
+        content: 'Agent 47, rendezvous at coordinates 51.5074°N, 0.1278°W.',
+        cipher: '4c6f674e756c6c536563'
+      },
+      {
+        label: 'ENCRYPTED ALERT',
+        content: 'Project QUANTUM phase 2 initiated. Stand by for orders.',
+        cipher: 'QTJPRFFVQU5UVU0='
+      }
+    ];
+
+    function showEncryptedMessage() {
+      const msg = encryptedMessages[Math.floor(Math.random() * encryptedMessages.length)];
+      
+      const msgEl = document.createElement('div');
+      msgEl.className = 'encrypted-message';
+      msgEl.innerHTML = `
+        <div class="encrypted-header">
+          <span class="encrypted-label">${msg.label}</span>
+          <button class="encrypted-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+        <div class="encrypted-content">${msg.content}</div>
+        <div class="encrypted-cipher">${msg.cipher}</div>
+        <button class="encrypted-decode-btn" onclick="decodeMessage(this)">DECODE</button>
+      `;
+      
+      document.body.appendChild(msgEl);
+      playSound('message');
+
+      setTimeout(() => {
+        msgEl.remove();
+      }, 8500);
+    }
+
+    window.decodeMessage = function(btn) {
+      const cipher = btn.previousElementSibling;
+      try {
+        const decoded = atob(cipher.textContent);
+        cipher.textContent = 'DECODED: ' + decoded;
+        cipher.style.color = '#fff';
+        cipher.style.textShadow = '0 0 15px rgba(255, 255, 255, 0.8)';
+        btn.textContent = 'DECODED ✓';
+        btn.disabled = true;
+        playSound('success');
+      } catch (e) {
+        cipher.textContent = 'DECODE FAILED: Invalid cipher';
+        cipher.style.color = '#999';
+      }
+    };
+
+    setInterval(showEncryptedMessage, 15000);
+    setTimeout(showEncryptedMessage, 8000);
+
+    // ============================================
+    // 🧠 NEURAL NETWORK
+    // ============================================
+    function generateNeuralNetwork() {
+      const container = document.getElementById('neuralNetwork');
+      const nodes = 12;
+      const nodePositions = [];
+
+      for (let i = 0; i < nodes; i++) {
+        const node = document.createElement('div');
+        node.className = 'neural-node';
+        const x = Math.random() * 380;
+        const y = Math.random() * 380;
+        node.style.left = x + 'px';
+        node.style.top = y + 'px';
+        node.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(node);
+        nodePositions.push({ x, y });
+      }
+
+      for (let i = 0; i < nodes - 1; i++) {
+        for (let j = i + 1; j < nodes; j++) {
+          if (Math.random() > 0.7) {
+            const connection = document.createElement('div');
+            connection.className = 'neural-connection';
+            const dx = nodePositions[j].x - nodePositions[i].x;
+            const dy = nodePositions[j].y - nodePositions[i].y;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            
+            connection.style.width = length + 'px';
+            connection.style.left = nodePositions[i].x + 'px';
+            connection.style.top = nodePositions[i].y + 'px';
+            connection.style.transform = `rotate(${angle}deg)`;
+            connection.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(connection);
+          }
+        }
+      }
+    }
+
+    generateNeuralNetwork();
+
+    // ============================================
+    // 👼 ANGEL PARTICLES
+    // ============================================
+    function generateAngelParticles() {
+      document.querySelectorAll('.digital-angel').forEach((angel, index) => {
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'angel-particle';
+          const offsetX = (Math.random() - 0.5) * 40;
+          particle.style.setProperty('--particle-x', offsetX + 'px');
+          particle.style.left = '50%';
+          particle.style.top = '80%';
+          particle.style.animationDelay = (Math.random() * 4) + 's';
+          particle.style.animationDuration = (3 + Math.random() * 2) + 's';
+          angel.appendChild(particle);
+        }
+      });
+    }
+
+    generateAngelParticles();
+
+    // ============================================
+    // 🎮 INTERACTIVE GRID
+    // ============================================
+    function generateInteractiveGrid() {
+      const container = document.getElementById('interactiveGrid');
+      const cols = Math.floor(window.innerWidth / 40);
+      const rows = Math.floor(window.innerHeight / 40);
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'grid-cell';
+          cell.style.left = (j * 40) + 'px';
+          cell.style.top = (i * 40) + 'px';
+          cell.dataset.row = i;
+          cell.dataset.col = j;
+          container.appendChild(cell);
+        }
+      }
+
+      document.addEventListener('mousemove', (e) => {
+        const cellX = Math.floor(e.clientX / 40);
+        const cellY = Math.floor(e.clientY / 40);
+        
+        document.querySelectorAll('.grid-cell').forEach(cell => {
+          const row = parseInt(cell.dataset.row);
+          const col = parseInt(cell.dataset.col);
+          const distance = Math.sqrt(Math.pow(col - cellX, 2) + Math.pow(row - cellY, 2));
+          
+          if (distance < 3) {
+            cell.classList.add('active');
+            setTimeout(() => cell.classList.remove('active'), 500);
+          }
+        });
+      });
+    }
+
+    generateInteractiveGrid();
+
+    // ============================================
+    // 🔊 SOUND SYSTEM
+    // ============================================
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioContext = new AudioContext();
+
+    function playSound(type) {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      const sounds = {
+        'click': { freq: 800, duration: 0.05 },
+        'hover': { freq: 600, duration: 0.03 },
+        'access': { freq: 1000, duration: 0.2 },
+        'alert': { freq: 400, duration: 0.15 },
+        'message': { freq: 700, duration: 0.1 },
+        'success': { freq: 1200, duration: 0.15 }
+      };
+
+      const sound = sounds[type] || sounds['click'];
+      
+      oscillator.frequency.value = sound.freq;
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + sound.duration);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + sound.duration);
+    }
+
+    // ============================================
+    // CURSOR & PARTICLES
+    // ============================================
     const cursor = document.getElementById('customCursor');
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
@@ -1617,7 +3018,6 @@
     }
     animateCursor();
 
-    // Cursor trail
     let trailTimeout;
     document.addEventListener('mousemove', (e) => {
       clearTimeout(trailTimeout);
@@ -1631,14 +3031,11 @@
       }, 50);
     });
 
-    // Click effect
-    document.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
       cursor.classList.add('click');
       setTimeout(() => cursor.classList.remove('click'), 300);
-    });
+      playSound('click');
 
-    // ===== CLICK PARTICLES =====
-    document.addEventListener('click', (e) => {
       for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -1658,7 +3055,13 @@
       }
     });
 
-    // ===== COUNTDOWN TIMER =====
+    document.querySelectorAll('.status-item, .logo, .lang-current').forEach(el => {
+      el.addEventListener('mouseenter', () => playSound('hover'));
+    });
+
+    // ============================================
+    // COUNTDOWN TIMER
+    // ============================================
     function updateCountdown() {
       const now = new Date();
       const target = new Date('2033-01-01T00:00:00');
@@ -1677,7 +3080,9 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // ===== FAKE METRICS =====
+    // ============================================
+    // FAKE METRICS
+    // ============================================
     function updateMetrics() {
       const cpu = Math.floor(Math.random() * 30) + 60;
       const ram = Math.floor(Math.random() * 40) + 40;
@@ -1695,7 +3100,9 @@
     updateMetrics();
     setInterval(updateMetrics, 2000);
 
-    // ===== RANDOM QUOTES =====
+    // ============================================
+    // RANDOM QUOTES
+    // ============================================
     const quotes = [
       "The future is now",
       "Hack the planet",
@@ -1720,7 +3127,9 @@
     }
     setInterval(updateQuote, 10000);
 
-    // ===== NOTIFICATIONS =====
+    // ============================================
+    // NOTIFICATIONS
+    // ============================================
     function showNotification(message, icon = '⚠️') {
       const notification = document.createElement('div');
       notification.className = 'notification';
@@ -1742,10 +3151,12 @@
       const notif = notifications[Math.floor(Math.random() * notifications.length)];
       showNotification(notif.msg, notif.icon);
     }
-    setTimeout(randomNotification, 5000);
+    setTimeout(randomNotification, 12000);
     setInterval(randomNotification, 20000);
 
-    // ===== TERMINAL =====
+    // ============================================
+    // TERMINAL
+    // ============================================
     const terminal = document.getElementById('terminal');
     const terminalContent = document.getElementById('terminalContent');
     const terminalInput = document.getElementById('terminalInput');
@@ -1774,6 +3185,7 @@
         const cmd = terminalInput.value.trim().toLowerCase();
         if (cmd) {
           addTerminalLine(terminalInput.value);
+          playSound('click');
           
           if (commands[cmd]) {
             if (cmd === 'clear') {
@@ -1800,33 +3212,37 @@
 
     terminalClose.addEventListener('click', () => {
       terminal.classList.remove('active');
+      playSound('click');
     });
 
-    // Open terminal with Ctrl+K
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         terminal.classList.add('active');
         terminalInput.focus();
+        playSound('access');
       }
       if (e.key === 'Escape') {
         terminal.classList.remove('active');
       }
     });
 
-    // ===== MATRIX MODE (Press M) =====
+    // ============================================
+    // MATRIX MODE (Press M)
+    // ============================================
     let matrixMode = false;
     document.addEventListener('keydown', (e) => {
       if (e.key === 'm' || e.key === 'M') {
         matrixMode = !matrixMode;
         document.body.classList.toggle('matrix-mode');
         showNotification(matrixMode ? 'Matrix Mode: ON' : 'Matrix Mode: OFF', '🟢');
+        playSound('success');
       }
     });
 
-    // ===== EASTER EGGS =====
-    
-    // Click logo 5 times = Matrix mode
+    // ============================================
+    // EASTER EGGS
+    // ============================================
     let logoClicks = 0;
     let logoClickTimer;
     document.getElementById('logo').addEventListener('click', () => {
@@ -1836,6 +3252,7 @@
       if (logoClicks === 5) {
         document.body.classList.toggle('matrix-mode');
         showNotification('Easter Egg Unlocked: Matrix Mode!', '🎮');
+        playSound('success');
         logoClicks = 0;
       }
       
@@ -1844,7 +3261,6 @@
       }, 2000);
     });
 
-    // Click year = Particle explosion
     document.getElementById('yearElement').addEventListener('click', (e) => {
       for (let i = 0; i < 50; i++) {
         const particle = document.createElement('div');
@@ -1865,9 +3281,48 @@
         setTimeout(() => particle.remove(), 1000);
       }
       showNotification('Particle Explosion!', '💥');
+      playSound('success');
     });
 
-    // Type "lognullsec" anywhere
+    // Easter Egg: Click on Angels - Divine Light Explosion
+    document.querySelectorAll('.digital-angel').forEach((angel, index) => {
+      angel.addEventListener('click', (e) => {
+        const rect = angel.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Divine light explosion
+        for (let i = 0; i < 100; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = centerX + 'px';
+          particle.style.top = centerY + 'px';
+          particle.style.background = 'linear-gradient(45deg, #fff, #ffd700)';
+          particle.style.boxShadow = '0 0 20px #ffd700';
+          
+          const angle = (Math.PI * 2 * i) / 100;
+          const velocity = 80 + Math.random() * 120;
+          const tx = Math.cos(angle) * velocity;
+          const ty = Math.sin(angle) * velocity;
+          
+          particle.style.setProperty('--tx', tx + 'px');
+          particle.style.setProperty('--ty', ty + 'px');
+          
+          document.body.appendChild(particle);
+          setTimeout(() => particle.remove(), 1500);
+        }
+
+        showNotification('Divine Blessing Activated! ✨', '👼');
+        playSound('success');
+
+        // Angel glows brighter temporarily
+        angel.style.filter = 'drop-shadow(0 0 60px rgba(255, 255, 255, 1))';
+        setTimeout(() => {
+          angel.style.filter = 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8))';
+        }, 2000);
+      });
+    });
+
     let secretCode = '';
     document.addEventListener('keypress', (e) => {
       secretCode += e.key;
@@ -1875,11 +3330,14 @@
       
       if (secretCode.includes('lognullsec')) {
         showNotification('Secret Code Activated! 🎉', '🔓');
+        playSound('success');
         secretCode = '';
       }
     });
 
-    // Generate Stars (MORE!)
+    // ============================================
+    // MATRIX & STARS & CITY
+    // ============================================
     function generateStars() {
       const starsContainer = document.getElementById('stars');
       const starCount = 150;
@@ -1895,7 +3353,6 @@
       }
     }
 
-    // Generate Matrix Rain
     function generateMatrixRain() {
       const matrixContainer = document.getElementById('matrix');
       const columns = Math.floor(window.innerWidth / 20);
@@ -1918,7 +3375,6 @@
       }
     }
 
-    // Generate City Buildings with Windows
     function generateCity() {
       const cityContainer = document.getElementById('city');
       const buildingClasses = ['building-1', 'building-2', 'building-3', 'building-4', 'building-5', 'building-6', 'building-7', 'building-8'];
@@ -1942,75 +3398,37 @@
       });
     }
 
-    // Language Functions
-    function getBrowserLanguage() {
-      const lang = navigator.language || navigator.userLanguage;
-      if (lang.startsWith('pt')) return 'pt';
-      if (lang.startsWith('es')) return 'es';
-      return 'en';
-    }
-
-    function getCurrentLanguage() {
-      return localStorage.getItem('language') || getBrowserLanguage();
-    }
-
-    function changeLanguage(lang) {
-      localStorage.setItem('language', lang);
-      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US';
-
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          element.textContent = translations[lang][key];
-        }
-      });
-
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang') === lang) {
-          btn.classList.add('active');
-        }
-      });
-    }
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    window.addEventListener('load', function () {
       generateStars();
       generateMatrixRain();
       generateCity();
-
+      
       const currentLang = getCurrentLanguage();
       changeLanguage(currentLang);
-
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const lang = this.getAttribute('data-lang');
-          changeLanguage(lang);
-        });
-      });
-
-      // Show welcome notification
-      setTimeout(() => {
-        showNotification('Welcome to LogNullSec™', '👋');
-      }, 3000);
+      
+      runBootSequence();
     });
 
-    // Loading Screen
-    window.addEventListener('load', function () {
-      const loading = document.getElementById('loading');
-      setTimeout(() => {
-        loading.classList.add('hidden');
-      }, 2500);
-    });
-
-    console.log('%c⚡ LogNullSec™ - SECURE VERSION LOADED! ⚡', 'background: #000; color: #0f0; font-size: 16px; padding: 10px;');
-    console.log('%c🔒 Security Headers: ACTIVE', 'color: #0f0; font-family: monospace;');
-    console.log('%c🛡️ XSS Protection: ENABLED', 'color: #0f0; font-family: monospace;');
-    console.log('%c🚫 Clickjacking Prevention: ENABLED', 'color: #0f0; font-family: monospace;');
-    console.log('%c📋 Content Security Policy: ENFORCED', 'color: #0f0; font-family: monospace;');
-    console.log('%c🤖 Features: Countdown, Cursor, Particles, Terminal, Matrix Mode, Metrics, Quotes, Notifications', 'color: #fff; font-family: monospace;');
-    console.log('%c🎮 Easter Eggs: Click logo 5x, Click year, Type "lognullsec", Press M for Matrix', 'color: #fff; font-family: monospace;');
-    console.log('%c⌨️ Shortcuts: Ctrl+K = Terminal, M = Matrix Mode, ESC = Close', 'color: #fff; font-family: monospace;');
+    console.log('%c⚡ LogNullSec™ - ULTIMATE VERSION C! ⚡', 'background: #000; color: #fff; font-size: 18px; padding: 10px; font-weight: bold;');
+    console.log('%c🎬 Boot Sequence (B&W): ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🔐 Biometric Scanner: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c📺 CRT Effects: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🔢 Encrypted Messages (B&W): ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c📡 Radar System (B&W): ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🧠 Neural Network: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🎮 Interactive Grid: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🔊 Sound System: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c📊 Threat Detection (B&W): ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🚀 Spaceships: ✅ (4 naves)', 'color: #fff; font-family: monospace;');
+    console.log('%c👼 Digital Angels: ✅ (5 anjos)', 'color: #fff; font-family: monospace;');
+    console.log('%c🌍 8 Languages: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c✨ Original Style Preserved: ✅', 'color: #fff; font-family: monospace;');
+    console.log('%c🎨 BLACK & WHITE DESIGN: ✅', 'color: #fff; font-weight: bold; font-size: 16px; font-family: monospace;');
+    console.log('%c🎯 ALL FEATURES LOADED! 10/10 ⭐', 'color: #fff; font-weight: bold; font-size: 14px; font-family: monospace;');
+    console.log('%c💡 Easter Egg: Click on Angels for Divine Blessing!', 'color: #ccc; font-family: monospace;');
   </script>
 </body>
 
