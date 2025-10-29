@@ -44,6 +44,83 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      cursor: none;
+    }
+
+    /* Matrix Mode */
+    body.matrix-mode {
+      --text-white: #00ff00;
+      --text-gray: #00cc00;
+      --neon-white: #00ff00;
+      --glow: 0 0 30px rgba(0, 255, 0, 0.8);
+      --glow-intense: 0 0 50px rgba(0, 255, 0, 1);
+    }
+
+    body.matrix-mode * {
+      color: #00ff00 !important;
+      border-color: #00ff00 !important;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--text-white);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
+      box-shadow: 0 0 20px var(--text-white);
+    }
+
+    .custom-cursor.click {
+      transform: scale(1.5);
+      animation: cursorPulse 0.3s;
+    }
+
+    @keyframes cursorPulse {
+      0%, 100% { transform: scale(1.5); }
+      50% { transform: scale(2); }
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--text-white);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      box-shadow: 0 0 10px var(--text-white);
+      animation: trailFade 0.5s forwards;
+    }
+
+    @keyframes trailFade {
+      to {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+
+    /* Click Particles */
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: var(--text-white);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      box-shadow: 0 0 10px var(--text-white);
+      animation: particleExplode 1s forwards;
+    }
+
+    @keyframes particleExplode {
+      to {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0);
+      }
     }
 
     /* Loading Animation */
@@ -95,6 +172,240 @@
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
+    }
+
+    /* Countdown Timer */
+    .countdown-container {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid var(--text-white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: var(--glow);
+      z-index: 99;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .countdown-title {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-bottom: 0.5rem;
+      text-align: center;
+      letter-spacing: 0.1em;
+    }
+
+    .countdown-time {
+      font-size: 1.5rem;
+      color: var(--text-white);
+      text-shadow: var(--glow);
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    /* Fake Metrics */
+    .metrics-container {
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid var(--text-white);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: var(--glow);
+      z-index: 99;
+      font-family: 'Share Tech Mono', monospace;
+      min-width: 200px;
+    }
+
+    .metric-item {
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .metric-label {
+      color: var(--text-gray);
+      margin-bottom: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .metric-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--border-gray);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .metric-fill {
+      height: 100%;
+      background: var(--text-white);
+      box-shadow: 0 0 10px var(--text-white);
+      transition: width 1s ease-out;
+      animation: metricPulse 2s infinite;
+    }
+
+    @keyframes metricPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Random Quote */
+    .quote-container {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid var(--text-white);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: var(--glow);
+      z-index: 99;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-white);
+      text-shadow: var(--glow);
+      max-width: 600px;
+      text-align: center;
+      animation: quoteFadeIn 1s;
+    }
+
+    @keyframes quoteFadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* Notification Popup */
+    .notification {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 2px solid var(--text-white);
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: var(--glow);
+      z-index: 100;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      animation: notificationSlide 0.5s, notificationFade 5s forwards;
+      max-width: 300px;
+    }
+
+    @keyframes notificationSlide {
+      from { transform: translateX(400px); }
+      to { transform: translateX(0); }
+    }
+
+    @keyframes notificationFade {
+      0%, 80% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(400px); }
+    }
+
+    .notification-icon {
+      color: var(--text-white);
+      margin-right: 0.5rem;
+    }
+
+    /* Terminal Modal */
+    .terminal-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 700px;
+      height: 400px;
+      background: rgba(0, 0, 0, 0.98);
+      border: 3px solid var(--text-white);
+      border-radius: 10px;
+      box-shadow: 0 0 100px rgba(255, 255, 255, 0.5);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .terminal-modal.active {
+      display: flex;
+      animation: terminalOpen 0.3s;
+    }
+
+    @keyframes terminalOpen {
+      from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    .terminal-header {
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-bottom: 2px solid var(--text-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .terminal-title {
+      color: var(--text-white);
+      font-size: 0.9rem;
+      text-shadow: var(--glow);
+    }
+
+    .terminal-close {
+      background: none;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: all 0.3s;
+    }
+
+    .terminal-close:hover {
+      text-shadow: var(--glow);
+      transform: scale(1.2);
+    }
+
+    .terminal-content {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      color: var(--text-white);
+      font-size: 0.9rem;
+    }
+
+    .terminal-line {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .terminal-prompt {
+      color: var(--text-white);
+      text-shadow: var(--glow);
+    }
+
+    .terminal-input-container {
+      padding: 1rem;
+      border-top: 2px solid var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      outline: none;
     }
 
     /* Background Container */
@@ -263,6 +574,14 @@
         0 0 30px rgba(255, 255, 255, 0.3),
         inset 0 0 30px rgba(255, 255, 255, 0.1);
       animation: buildingGlow 3s ease-in-out infinite;
+      transition: all 0.3s;
+    }
+
+    .building:hover {
+      transform: translateY(-10px);
+      box-shadow: 
+        0 0 50px rgba(255, 255, 255, 0.6),
+        inset 0 0 50px rgba(255, 255, 255, 0.3);
     }
 
     @keyframes buildingGlow {
@@ -311,6 +630,12 @@
       box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
       animation: flyCar linear infinite;
       z-index: 5;
+      transition: all 0.3s;
+    }
+
+    .flying-car:hover {
+      animation-duration: 5s !important;
+      filter: brightness(1.5);
     }
 
     .flying-car::before {
@@ -355,6 +680,12 @@
       height: 70px;
       animation: floatRobot 5s ease-in-out infinite;
       z-index: 5;
+      transition: all 0.3s;
+    }
+
+    .robot:hover {
+      animation-duration: 2s;
+      transform: scale(1.2) !important;
     }
 
     .robot-body {
@@ -584,6 +915,13 @@
       text-shadow: var(--glow);
       font-weight: 700;
       animation: logoGlitch 6s infinite;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logo:hover {
+      transform: scale(1.1);
+      text-shadow: 0 0 50px rgba(255, 255, 255, 1);
     }
 
     @keyframes logoGlitch {
@@ -687,6 +1025,12 @@
       text-shadow: var(--glow-intense);
       animation: iconFloat 3s ease-in-out infinite;
       filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .construction-icon:hover {
+      transform: scale(1.3) rotate(15deg);
     }
 
     @keyframes iconFloat {
@@ -732,6 +1076,13 @@
       margin: 1.5rem 0;
       animation: yearPulse 2s ease-in-out infinite;
       position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .construction-year:hover {
+      transform: scale(1.2);
+      text-shadow: 0 0 100px rgba(255, 255, 255, 1);
     }
 
     @keyframes yearPulse {
@@ -780,6 +1131,12 @@
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       animation: statusFloat 3s ease-in-out infinite;
+      transition: all 0.3s;
+    }
+
+    .status-item:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
     }
 
     .status-item:nth-child(1) { animation-delay: 0s; }
@@ -839,6 +1196,25 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
+      body {
+        cursor: default;
+      }
+      
+      .custom-cursor, .cursor-trail {
+        display: none;
+      }
+
+      .countdown-container,
+      .metrics-container {
+        display: none;
+      }
+
+      .quote-container {
+        bottom: 120px;
+        font-size: 0.8rem;
+        padding: 0.8rem 1.5rem;
+      }
+
       header {
         padding: 1rem;
         flex-direction: column;
@@ -858,6 +1234,11 @@
       .building { width: 50px !important; }
       .robot, .drone { display: none; }
       .flying-car:nth-child(n+4) { display: none; }
+
+      .terminal-modal {
+        width: 95%;
+        height: 80%;
+      }
     }
 
     @media (max-width: 480px) {
@@ -868,11 +1249,20 @@
       .status-indicators { flex-direction: column; gap: 1rem; }
       .city-skyline { height: 30%; }
       .construction-content { padding: 2rem 1.5rem; }
+      
+      .quote-container {
+        font-size: 0.75rem;
+        padding: 0.6rem 1rem;
+        max-width: 90%;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+
   <div class="loading-screen" id="loading">
     <div class="terminal-loader">
       <div>╔══════════════════════════════════╗</div>
@@ -880,6 +1270,73 @@
       <div>║   LOADING QUANTUM PROTOCOLS...   ║</div>
       <div>║   ESTABLISHING CONNECTION<span class="cursor">_</span>      ║</div>
       <div>╚══════════════════════════════════╝</div>
+    </div>
+  </div>
+
+  <!-- Countdown Timer -->
+  <div class="countdown-container" id="countdown">
+    <div class="countdown-title">LAUNCH IN:</div>
+    <div class="countdown-time" id="countdownTime">00:00:00:00</div>
+  </div>
+
+  <!-- Fake Metrics -->
+  <div class="metrics-container">
+    <div class="metric-item">
+      <div class="metric-label">
+        <span>CPU</span>
+        <span id="cpuValue">0%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="metric-fill" id="cpuBar" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-label">
+        <span>RAM</span>
+        <span id="ramValue">0%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="metric-fill" id="ramBar" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-label">
+        <span>NET</span>
+        <span id="netValue">0%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="metric-fill" id="netBar" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-label">
+        <span>SEC</span>
+        <span id="secValue">100%</span>
+      </div>
+      <div class="metric-bar">
+        <div class="metric-fill" id="secBar" style="width: 100%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Random Quote -->
+  <div class="quote-container" id="quote">
+    "The future is now"
+  </div>
+
+  <!-- Terminal Modal -->
+  <div class="terminal-modal" id="terminal">
+    <div class="terminal-header">
+      <div class="terminal-title">⚡ LogNullSec™ Terminal</div>
+      <button class="terminal-close" id="terminalClose">×</button>
+    </div>
+    <div class="terminal-content" id="terminalContent">
+      <div class="terminal-line"><span class="terminal-prompt">$</span> Welcome to LogNullSec™ Terminal v2033</div>
+      <div class="terminal-line"><span class="terminal-prompt">$</span> Type 'help' for available commands</div>
+    </div>
+    <div class="terminal-input-container">
+      <span class="terminal-prompt">$</span>
+      <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command..." autocomplete="off">
     </div>
   </div>
 
@@ -986,7 +1443,7 @@
   </div>
 
   <header>
-    <div class="logo">⚡ LogNullSec™ ⚡</div>
+    <div class="logo" id="logo">⚡ LogNullSec™ ⚡</div>
     <div class="language-selector">
       <button class="lang-btn" data-lang="pt">PT</button>
       <button class="lang-btn" data-lang="en">EN</button>
@@ -996,14 +1453,14 @@
 
   <main>
     <div class="construction-content">
-      <div class="construction-icon">
+      <div class="construction-icon" id="mainIcon">
         <i class="fas fa-robot"></i>
       </div>
       <h1 data-i18n="title">EM CONSTRUÇÃO</h1>
-      <div class="construction-year">2033</div>
+      <div class="construction-year" id="yearElement">2033</div>
       <p class="subtitle">
         <span data-i18n="tagline">⚡ Hack The Future ⚡</span><br>
-        <span data-i18n="subtitle">Sistema em desenvolvimento</span>
+        <span data-i18n="subtitle">Sistemas Em Desenvolvimento</span>
       </p>
       <div class="status-indicators">
         <div class="status-item">
@@ -1030,11 +1487,20 @@
   </footer>
 
   <script>
+    // ===== CONSOLE LOGS ESTILIZADOS =====
+    console.log('%c⚡ SYSTEM BREACH DETECTED! ⚡', 'background: #000; color: #fff; font-size: 20px; padding: 10px; font-family: monospace;');
+    console.log('%cInitializing countermeasures...', 'color: #0f0; font-family: monospace;');
+    console.log('%c⚡ Welcome to LogNullSec™ ⚡', 'background: #000; color: #fff; font-size: 16px; padding: 5px; font-family: monospace;');
+    console.log('%cExpected launch: 2033', 'color: #fff; font-family: monospace;');
+    console.log('%c🤖 All systems operational', 'color: #0f0; font-family: monospace;');
+    console.log('%cPress Ctrl+K to open terminal', 'color: #888; font-family: monospace;');
+    console.log('%cPress M for Matrix Mode', 'color: #888; font-family: monospace;');
+
     // Translations
     const translations = {
       pt: {
         title: 'EM CONSTRUÇÃO',
-        tagline: 'Hack The Future',
+        tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Sistemas Em Desenvolvimento',
         status1: 'QUANTUM PROTOCOLS',
         status2: 'AI SYSTEMS',
@@ -1044,7 +1510,7 @@
       },
       en: {
         title: 'UNDER CONSTRUCTION',
-        tagline: 'Hack The Future',
+        tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Systems Under Development',
         status1: 'QUANTUM PROTOCOLS',
         status2: 'AI SYSTEMS',
@@ -1054,7 +1520,7 @@
       },
       es: {
         title: 'EN CONSTRUCCIÓN',
-        tagline: 'Hack The Future',
+        tagline: '⚡ Hack The Future ⚡',
         subtitle: 'Sistemas En Desarrollo',
         status1: 'QUANTUM PROTOCOLS',
         status2: 'AI SYSTEMS',
@@ -1063,6 +1529,292 @@
         'footer-tagline': 'Hack responsibly. Build securely. Think quantum.'
       }
     };
+
+    // ===== CUSTOM CURSOR =====
+    const cursor = document.getElementById('customCursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      const dx = mouseX - cursorX;
+      const dy = mouseY - cursorY;
+      
+      cursorX += dx * 0.2;
+      cursorY += dy * 0.2;
+      
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+      
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Cursor trail
+    let trailTimeout;
+    document.addEventListener('mousemove', (e) => {
+      clearTimeout(trailTimeout);
+      trailTimeout = setTimeout(() => {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 500);
+      }, 50);
+    });
+
+    // Click effect
+    document.addEventListener('click', () => {
+      cursor.classList.add('click');
+      setTimeout(() => cursor.classList.remove('click'), 300);
+    });
+
+    // ===== CLICK PARTICLES =====
+    document.addEventListener('click', (e) => {
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = e.clientX + 'px';
+        particle.style.top = e.clientY + 'px';
+        
+        const angle = (Math.PI * 2 * i) / 20;
+        const velocity = 50 + Math.random() * 50;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--tx', tx + 'px');
+        particle.style.setProperty('--ty', ty + 'px');
+        
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      }
+    });
+
+    // ===== COUNTDOWN TIMER =====
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date('2033-01-01T00:00:00');
+      const diff = target - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('countdownTime').textContent = 
+          `${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+      }
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ===== FAKE METRICS =====
+    function updateMetrics() {
+      const cpu = Math.floor(Math.random() * 30) + 60;
+      const ram = Math.floor(Math.random() * 40) + 40;
+      const net = Math.floor(Math.random() * 20) + 80;
+
+      document.getElementById('cpuValue').textContent = cpu + '%';
+      document.getElementById('cpuBar').style.width = cpu + '%';
+      
+      document.getElementById('ramValue').textContent = ram + '%';
+      document.getElementById('ramBar').style.width = ram + '%';
+      
+      document.getElementById('netValue').textContent = net + '%';
+      document.getElementById('netBar').style.width = net + '%';
+    }
+    updateMetrics();
+    setInterval(updateMetrics, 2000);
+
+    // ===== RANDOM QUOTES =====
+    const quotes = [
+      "The future is now",
+      "Hack the planet",
+      "In code we trust",
+      "Stay paranoid",
+      "Access granted",
+      "System compromised",
+      "Encryption is freedom",
+      "Zero-day incoming",
+      "Root access achieved",
+      "Neural network active"
+    ];
+
+    function updateQuote() {
+      const quoteElement = document.getElementById('quote');
+      const newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteElement.style.animation = 'none';
+      setTimeout(() => {
+        quoteElement.textContent = '"' + newQuote + '"';
+        quoteElement.style.animation = 'quoteFadeIn 1s';
+      }, 10);
+    }
+    setInterval(updateQuote, 10000);
+
+    // ===== NOTIFICATIONS =====
+    function showNotification(message, icon = '⚠️') {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `<span class="notification-icon">${icon}</span>${message}`;
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 5000);
+    }
+
+    const notifications = [
+      { msg: '3 intrusions blocked', icon: '🛡️' },
+      { msg: 'System secure ✓', icon: '✅' },
+      { msg: 'Firewall updated', icon: '🔥' },
+      { msg: 'Quantum encryption active', icon: '🔐' },
+      { msg: 'AI threat detection online', icon: '🤖' },
+      { msg: 'Network scan complete', icon: '📡' }
+    ];
+
+    function randomNotification() {
+      const notif = notifications[Math.floor(Math.random() * notifications.length)];
+      showNotification(notif.msg, notif.icon);
+    }
+    setTimeout(randomNotification, 5000);
+    setInterval(randomNotification, 20000);
+
+    // ===== TERMINAL =====
+    const terminal = document.getElementById('terminal');
+    const terminalContent = document.getElementById('terminalContent');
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalClose = document.getElementById('terminalClose');
+
+    const commands = {
+      help: 'Available commands: help, whoami, status, hack, matrix, clear, exit',
+      whoami: 'You are: VISITOR_' + new Date().getFullYear(),
+      status: 'All systems operational ✓\nSecurity: Maximum\nThreat level: Zero',
+      hack: 'Initiating hack sequence...\n[████████████] 100%\nACCESS GRANTED! Just kidding 😎',
+      matrix: 'Entering the Matrix...\n01001000 01000001 01000011 01001011\nWelcome to the real world.',
+      clear: '__CLEAR__',
+      exit: '__EXIT__'
+    };
+
+    function addTerminalLine(text) {
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+      line.innerHTML = '<span class="terminal-prompt">$</span> ' + text;
+      terminalContent.appendChild(line);
+      terminalContent.scrollTop = terminalContent.scrollHeight;
+    }
+
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = terminalInput.value.trim().toLowerCase();
+        if (cmd) {
+          addTerminalLine(terminalInput.value);
+          
+          if (commands[cmd]) {
+            if (cmd === 'clear') {
+              terminalContent.innerHTML = '';
+            } else if (cmd === 'exit') {
+              terminal.classList.remove('active');
+            } else {
+              commands[cmd].split('\n').forEach(line => {
+                const responseLine = document.createElement('div');
+                responseLine.className = 'terminal-line';
+                responseLine.textContent = line;
+                terminalContent.appendChild(responseLine);
+              });
+            }
+          } else {
+            addTerminalLine(`Command not found: ${cmd}. Type 'help' for available commands.`);
+          }
+          
+          terminalInput.value = '';
+          terminalContent.scrollTop = terminalContent.scrollHeight;
+        }
+      }
+    });
+
+    terminalClose.addEventListener('click', () => {
+      terminal.classList.remove('active');
+    });
+
+    // Open terminal with Ctrl+K
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        terminal.classList.add('active');
+        terminalInput.focus();
+      }
+      if (e.key === 'Escape') {
+        terminal.classList.remove('active');
+      }
+    });
+
+    // ===== MATRIX MODE (Press M) =====
+    let matrixMode = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'm' || e.key === 'M') {
+        matrixMode = !matrixMode;
+        document.body.classList.toggle('matrix-mode');
+        showNotification(matrixMode ? 'Matrix Mode: ON' : 'Matrix Mode: OFF', '🟢');
+      }
+    });
+
+    // ===== EASTER EGGS =====
+    
+    // Click logo 5 times = Matrix mode
+    let logoClicks = 0;
+    let logoClickTimer;
+    document.getElementById('logo').addEventListener('click', () => {
+      logoClicks++;
+      clearTimeout(logoClickTimer);
+      
+      if (logoClicks === 5) {
+        document.body.classList.toggle('matrix-mode');
+        showNotification('Easter Egg Unlocked: Matrix Mode!', '🎮');
+        logoClicks = 0;
+      }
+      
+      logoClickTimer = setTimeout(() => {
+        logoClicks = 0;
+      }, 2000);
+    });
+
+    // Click year = Particle explosion
+    document.getElementById('yearElement').addEventListener('click', (e) => {
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        const rect = e.target.getBoundingClientRect();
+        particle.style.left = (rect.left + rect.width / 2) + 'px';
+        particle.style.top = (rect.top + rect.height / 2) + 'px';
+        
+        const angle = (Math.PI * 2 * i) / 50;
+        const velocity = 100 + Math.random() * 100;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--tx', tx + 'px');
+        particle.style.setProperty('--ty', ty + 'px');
+        
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+      }
+      showNotification('Particle Explosion!', '💥');
+    });
+
+    // Type "lognullsec" anywhere
+    let secretCode = '';
+    document.addEventListener('keypress', (e) => {
+      secretCode += e.key;
+      if (secretCode.length > 10) secretCode = secretCode.slice(-10);
+      
+      if (secretCode.includes('lognullsec')) {
+        showNotification('Secret Code Activated! 🎉', '🔓');
+        secretCode = '';
+      }
+    });
 
     // Generate Stars (MORE!)
     function generateStars() {
@@ -1173,6 +1925,11 @@
           changeLanguage(lang);
         });
       });
+
+      // Show welcome notification
+      setTimeout(() => {
+        showNotification('Welcome to LogNullSec™', '👋');
+      }, 3000);
     });
 
     // Loading Screen
@@ -1183,9 +1940,10 @@
       }, 2500);
     });
 
-    console.log('⚡ LogNullSec™ - BLACK & WHITE NEON MODE! ⚡');
-    console.log('🤖 Maximum Animations Activated!');
-    console.log('🚀 Expected launch: 2033');
+    console.log('⚡ LogNullSec™ - ULTRA VERSION WITH ALL FEATURES! ⚡');
+    console.log('🤖 Features: Countdown, Cursor, Particles, Terminal, Matrix Mode, Metrics, Quotes, Notifications');
+    console.log('🎮 Easter Eggs: Click logo 5x, Click year, Type "lognullsec", Press M for Matrix');
+    console.log('⌨️ Shortcuts: Ctrl+K = Terminal, M = Matrix Mode, ESC = Close');
   </script>
 </body>
 
